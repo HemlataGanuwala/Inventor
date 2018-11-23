@@ -5,7 +5,8 @@
             android:fromDegrees="45"
             android:toDegrees="45"
             android:pivotX="-40%"
-            android:pivotY="87%" >
+            android:pivotY="87%"
+            >
             <shape
                 android:shape="rectangle"  >
                 <stroke android:color="@android:color/transparent" android:width="10dp"/>

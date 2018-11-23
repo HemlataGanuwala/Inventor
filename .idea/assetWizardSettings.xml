@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/F:/Sky%20vision/Android%20Studio/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_rotate_left_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/F:/Sky%20vision/Android%20Studio/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_group_add_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_rotateleft" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_grpagent" />
                             <entry key="sourceFile" value="C:\Users\Shweta" />
                           </map>
                         </option>
