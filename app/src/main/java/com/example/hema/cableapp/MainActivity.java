@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText("Register");
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_reg, 0, 0);
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.reg, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tabfour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabfour.setText("Agent");
-        tabfour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_agent, 0, 0);
+        tabfour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_grpagent, 0, 0);
         tabLayout.getTabAt(3).setCustomView(tabfour);
     }
 }
