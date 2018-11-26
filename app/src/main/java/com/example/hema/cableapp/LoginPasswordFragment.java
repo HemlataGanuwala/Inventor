@@ -151,10 +151,6 @@ public class LoginPasswordFragment extends Fragment {
                 {
                     Toast.makeText(getActivity(), "Login Successfully", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(),MainActivity.class);
-//                intent.putExtra("a1",user);
-//                intent.putExtra("a2",cmonth);
-//                intent.putExtra("a3",cyear);
-//                intent.putExtra("a4",spincomp);
                     startActivity(intent);
                     //finish();
                 }
