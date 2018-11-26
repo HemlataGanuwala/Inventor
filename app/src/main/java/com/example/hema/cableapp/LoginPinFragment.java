@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +36,10 @@ public class LoginPinFragment extends Fragment {
     View view;
     ProgressDialog progress;
     ServiceHandler shh;
-    String path,username,password,user1,pass1,regstatus,regstatus1;
+    String path,pin1,pin2,pin3,pin4,tpin;
     TextView textViewpin1,textViewpin2,textViewpin3,textViewpin4;
-    Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0,buttonpasswordshow,buttoncross;
+    Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0;
+    ImageButton buttonpasswordshow,buttoncross;
     int flag=1;
 
     public LoginPinFragment() {
@@ -52,7 +56,7 @@ public class LoginPinFragment extends Fragment {
         path = globalVariable.getconstr();
 
         textViewpin1 = (TextView) view.findViewById(R.id.tvpin1);
-        textViewpin1 = (TextView)view.findViewById(R.id.tvpin2);
+        textViewpin2 = (TextView)view.findViewById(R.id.tvpin2);
         textViewpin3 = (TextView) view.findViewById(R.id.tvpin3);
         textViewpin4 = (TextView)view.findViewById(R.id.tvpin4);
         button0 = (Button)view.findViewById(R.id.btn0);
@@ -65,115 +69,162 @@ public class LoginPinFragment extends Fragment {
         button7 = (Button)view.findViewById(R.id.btn7);
         button8 = (Button)view.findViewById(R.id.btn8);
         button9 = (Button)view.findViewById(R.id.btn9);
+        buttonpasswordshow = (ImageButton) view.findViewById(R.id.btneye);
+        buttoncross = (ImageButton) view.findViewById(R.id.btnclear);
 
-//        buttonlogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LoginData();
-//            }
-//        });
+        buttoncross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cleartextdata();
+            }
+        });
+
+        buttonpasswordshow.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch ( event.getAction() ) {
+
+                    case MotionEvent.ACTION_UP:
+                        textViewpin1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        textViewpin2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        textViewpin3.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        textViewpin4.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+
+                    case MotionEvent.ACTION_DOWN:
+                        textViewpin1.setInputType(InputType.TYPE_CLASS_TEXT);
+                        textViewpin2.setInputType(InputType.TYPE_CLASS_TEXT);
+                        textViewpin3.setInputType(InputType.TYPE_CLASS_TEXT);
+                        textViewpin4.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+
+                }
+                return true;
+            }
+
+        });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "1";
+                Filltextdata();
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "2";
+                Filltextdata();
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "3";
+                Filltextdata();
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "4";
+                Filltextdata();
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "5";
+                Filltextdata();
+            }
+        });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "6";
+                Filltextdata();
+            }
+        });
+
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "7";
+                Filltextdata();
+            }
+        });
+
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "8";
+                Filltextdata();
+            }
+        });
+
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "9";
+                Filltextdata();
+            }
+        });
+
+        button0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tpin = "0";
+                Filltextdata();
+            }
+        });
         return view;
     }
 
-    public void LoginData(){
-
-//        username = editTextuser.getText().toString().trim();
-//        password = editTextpassword.getText().toString().trim();
-        regstatus = "1";
-
-        new getloginData().execute();
-
-    }
-
-    class getloginData extends AsyncTask<Void, Void, String>
+    public void Filltextdata()
     {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progress.setIndeterminate(true);
-            progress.setProgress(0);
-            progress.show();
+        if (textViewpin1.getText().toString().equals(""))
+        {
+            textViewpin1.setText(tpin);
         }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            shh = new ServiceHandler();
-            String url = path + "Registration/AdminLogin";
-            Log.d("Url: ", "> " + url);
-
-            try{
-                List<NameValuePair> params2 = new ArrayList<>();
-                params2.add(new BasicNameValuePair("UserId",username));
-                params2.add(new BasicNameValuePair("Password",password));
-
-                String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
-
-                if (jsonStr != null) {
-                    JSONObject c1 = new JSONObject(jsonStr);
-                    JSONArray classArray = c1.getJSONArray("Response");
-                    //JSONArray jsonarry = new JSONArray(jsonStr);
-
-                    for (int i = 0; i < classArray.length(); i++) {
-                        JSONObject a1 = classArray.getJSONObject(i);
-
-                        user1 = a1.getString("UserId");
-                        pass1 = a1.getString("Password");
-                        regstatus1 = a1.getString("SkyStatus");
-                    }
-
-
-                    if(classArray.length() == 0)
-                    {
-                        flag = 0;
-                    }
-                    else
-                    {
-                        flag = 1;
-
-                    }
-
-                }
-                else
-                {
-                    //Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-                }
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
-            return null;
+        else if (textViewpin2.getText().toString().equals(""))
+        {
+            textViewpin2.setText(tpin);
         }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            progress.dismiss();
-
-            if (regstatus1 == "1")
-            {
-                if (flag == 1)
-                {
-                    Toast.makeText(getActivity(), "Login Successfully", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getActivity(),MainActivity.class);
-                    startActivity(intent);
-                    //finish();
-                }
-                else {
-                    Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_LONG).show();
-                }
-            }
-            else
-            {
-                Toast.makeText(getActivity(), "App is not Activated", Toast.LENGTH_LONG).show();
-            }
-
-
+        else if (textViewpin3.getText().toString().equals(""))
+        {
+            textViewpin3.setText(tpin);
+        }
+        else if (textViewpin4.getText().toString().equals(""))
+        {
+            textViewpin4.setText(tpin);
         }
     }
+
+    public void Cleartextdata()
+    {
+        if (!textViewpin4.getText().toString().equals(""))
+        {
+            textViewpin4.setText("");
+        }
+        else if (!textViewpin3.getText().toString().equals(""))
+        {
+            textViewpin3.setText("");
+        }
+        else if (!textViewpin2.getText().toString().equals(""))
+        {
+            textViewpin2.setText("");
+        }
+        else if (!textViewpin1.getText().toString().equals(""))
+        {
+            textViewpin1.setText("");
+        }
+    }
+
 
 }
