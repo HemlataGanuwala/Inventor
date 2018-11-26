@@ -97,7 +97,7 @@ public class LoginPasswordFragment extends Fragment {
 
             try{
                 List<NameValuePair> params2 = new ArrayList<>();
-                params2.add(new BasicNameValuePair("AgentName",username));
+                params2.add(new BasicNameValuePair("UserId",username));
                 params2.add(new BasicNameValuePair("Password",password));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
@@ -110,7 +110,7 @@ public class LoginPasswordFragment extends Fragment {
                     for (int i = 0; i < classArray.length(); i++) {
                         JSONObject a1 = classArray.getJSONObject(i);
 
-                        user1 = a1.getString("AgentName");
+                        user1 = a1.getString("UserId");
                         pass1 = a1.getString("Password");
                         regstatus1 = a1.getString("SkyStatus");
                     }
