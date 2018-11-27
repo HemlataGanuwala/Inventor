@@ -59,7 +59,9 @@ public class LoginPasswordFragment extends Fragment {
         buttonlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginData();
+//                LoginData();
+                Intent obj= new Intent(getActivity(),MainActivity.class);
+                startActivity(obj);
             }
         });
 
