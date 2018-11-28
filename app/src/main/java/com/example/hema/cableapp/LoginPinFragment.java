@@ -38,7 +38,7 @@ public class LoginPinFragment extends Fragment {
     ServiceHandler shh;
     String path,pin1,pin2,pin3,pin4,tpin;
     TextView textViewpin1,textViewpin2,textViewpin3,textViewpin4;
-    Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0;
+    Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0,buttonloginpin;
     ImageButton buttonpasswordshow,buttoncross;
     int flag=1;
 
@@ -71,6 +71,14 @@ public class LoginPinFragment extends Fragment {
         button9 = (Button)view.findViewById(R.id.btn9);
         buttonpasswordshow = (ImageButton) view.findViewById(R.id.btneye);
         buttoncross = (ImageButton) view.findViewById(R.id.btnclear);
+        buttonloginpin = (Button) view.findViewById(R.id.btnpinlogin);
+
+        buttonloginpin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginData();
+            }
+        });
 
         buttoncross.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,6 +232,95 @@ public class LoginPinFragment extends Fragment {
         {
             textViewpin1.setText("");
         }
+    }
+
+    public void LoginData(){
+
+        pin1 = textViewpin1.getText().toString() + textViewpin2.getText().toString() + textViewpin3.getText().toString() + textViewpin4.getText().toString();
+
+        new getloginData().execute();
+
+    }
+
+    class getloginData extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress=new ProgressDialog(getActivity());
+            progress.setMessage("Loading...");
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            shh = new ServiceHandler();
+            String url = path + "Registration/AdminLogin";
+            Log.d("Url: ", "> " + url);
+
+            try{
+                List<NameValuePair> params2 = new ArrayList<>();
+                params2.add(new BasicNameValuePair("Pin",pin1));
+
+                String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
+
+                if (jsonStr != null) {
+                    JSONObject c1 = new JSONObject(jsonStr);
+                    JSONArray classArray = c1.getJSONArray("Response");
+                    //JSONArray jsonarry = new JSONArray(jsonStr);
+
+                    for (int i = 0; i < classArray.length(); i++) {
+                        JSONObject a1 = classArray.getJSONObject(i);
+
+                        pin2 = a1.getString("Pin");
+
+                    }
+
+
+                    if(classArray.length() == 0)
+                    {
+                        flag = 0;
+                    }
+                    else
+                    {
+                        flag = 1;
+
+                    }
+
+                }
+                else
+                {
+                    //Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            progress.dismiss();
+
+            if (flag == 1)
+            {
+                Toast.makeText(getActivity(), "Login Successfully", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+                    //finish();
+            }
+            else {
+                Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_LONG).show(); }
+        }
+
+
     }
 
 
