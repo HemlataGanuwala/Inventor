@@ -19,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        globalVariable.setconstr("http://192.168.1.49:8011/api/");
+        globalVariable.setconstr("http://192.168.0.116:8011/api/");
 
         tabLayout = (TabLayout)findViewById(R.id.tablayout);
         viewPager = (ViewPager)findViewById(R.id.viewpages);

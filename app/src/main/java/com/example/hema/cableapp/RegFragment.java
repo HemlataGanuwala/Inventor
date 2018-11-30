@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -40,7 +41,7 @@ public class RegFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttonreg,buttondate;
-    String custname,address,mobno,area,nobox,setupdetails,monthlycharge,regdate,path,agentnm,packagenm,packnm,prate,agent;
+    String custname,address,mobno,area,nobox,setupdetails,monthlycharge,regdate,path,agentnm,packagenm;
     Spinner spinneragentname,packagename;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     int year,month,day;
@@ -48,8 +49,12 @@ public class RegFragment extends Fragment {
     ProgressDialog progress;
     EditText editTextcname,editTextaddress,editTextmobno,editTextarea,editTextnobox,editTextsetupdetails,editTextMCharges,editTextegdate;
     TextView textViewdate;
-    ArrayList<String> packlist,agentlist;
-
+    ArrayList<SpinnerPlanet> packlist;
+    ArrayList<SpinnerAgentPlanet> agentlist;
+    SpinnerPlanet packnm;
+    SpinnerAgentPlanet agentspinname;
+    String getpack,getrate;
+    ArrayAdapter<String> spinnerpackageAdapter;
 
     public RegFragment() {
         // Required empty public constructor
@@ -72,37 +77,30 @@ public class RegFragment extends Fragment {
         editTextnobox = (EditText)view.findViewById(R.id.etnobox);
         editTextsetupdetails = (EditText)view.findViewById(R.id.etsetboxdetail);
         packagename = (Spinner) view.findViewById(R.id.spinpackage);
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_spinner_item, packnm);
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        packagename.setAdapter(dataAdapter);
-
+        packlist = new ArrayList<SpinnerPlanet>();
+        agentlist = new ArrayList<SpinnerAgentPlanet>();
         editTextMCharges=(EditText)view.findViewById(R.id.etrate);
         buttonreg = (Button) view.findViewById(R.id.btncustregistration);
         buttondate=(Button) view.findViewById(R.id.btnsetdt);
         textViewdate=(TextView)view.findViewById(R.id.txtdate);
         spinneragentname=(Spinner)view.findViewById(R.id.spinagentname);
-//        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_spinner_item, agent);
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinneragentname.setAdapter(dataAdapter2);
 
         new GetPackageData().execute();
         new GetAgentData().execute();
 
-        buttondate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                year = calendar.get(Calendar.YEAR);
-                month = calendar.get(Calendar.MONTH);
-                day = calendar.get(Calendar.DAY_OF_MONTH);
+       buttondate.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Calendar calendar = Calendar.getInstance();
+               year = calendar.get(Calendar.YEAR);
+               month = calendar.get(Calendar.MONTH);
+               day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(),android.R.style.Theme_Holo_Light_Dialog_MinWidth,dateSetListener,year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
+               DatePickerDialog dialog = new DatePickerDialog(getActivity(),android.R.style.Theme_Holo_Light_Dialog_MinWidth,dateSetListener,year,month,day);
+               dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+               dialog.show();
+           }
+       });
 
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -119,11 +117,24 @@ public class RegFragment extends Fragment {
                 Insert();
             }
         });
-       // return view;
 
-        /* Inflate the layout for this fragment */
-        return inflater.inflate(R.layout.fragment_reg, container, false);
+       packagename.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+               getrate = packlist.get(position).getPackageRate();
+               editTextMCharges.setText(getrate);
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
+
+       return view;
     }
+
         public  void Insert()
         {
             custname=editTextcname.getText().toString();
@@ -171,16 +182,17 @@ public class RegFragment extends Fragment {
 
                 List<NameValuePair> para = new ArrayList<>();
                 // para.add(new BasicNameValuePair("CustBal", balance));
-                para.add(new BasicNameValuePair("CustName  ", custname));
-                para.add(new BasicNameValuePair("Address  ", address));
-                para.add(new BasicNameValuePair("MobileNo  ", mobno));
-                para.add(new BasicNameValuePair("Area  ", area));
-                para.add(new BasicNameValuePair("NoOfBox  ", nobox));
-                para.add(new BasicNameValuePair("SetupBox_Details  ", setupdetails));
-                para.add(new BasicNameValuePair("Package  ", packagenm));
-                para.add(new BasicNameValuePair("PackageRate   ",monthlycharge));
-                para.add(new BasicNameValuePair("RegistrationDate  ", regdate));
-                para.add(new BasicNameValuePair("AgentName  ", agentnm));
+                para.add(new BasicNameValuePair("CustName", custname));
+                para.add(new BasicNameValuePair("CustName", custname));
+                para.add(new BasicNameValuePair("Address", address));
+                para.add(new BasicNameValuePair("MobileNo", mobno));
+                para.add(new BasicNameValuePair("Area", area));
+                para.add(new BasicNameValuePair("NoOfBox", nobox));
+                para.add(new BasicNameValuePair("SetupBox_Details", setupdetails));
+                para.add(new BasicNameValuePair("Package", packagenm));
+                para.add(new BasicNameValuePair("PackageRate", monthlycharge));
+                para.add(new BasicNameValuePair("RegistrationDate", regdate));
+                para.add(new BasicNameValuePair("AgentName", agentnm));
 
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);
@@ -213,12 +225,12 @@ public class RegFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "Package save succesfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Register succesfully", Toast.LENGTH_LONG).show();
                     }
                 });
 
             } else {
-                Toast.makeText(getActivity(), "Package not registered", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Register Failed", Toast.LENGTH_LONG).show();
             }
 
             editTextcname.setText("");
@@ -267,19 +279,10 @@ public class RegFragment extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject a1 = jsonArray.getJSONObject(i);
 
-                        packnm = a1.getString("PackageName");
-                        prate = a1.getString("Rate");
+                        packnm = new SpinnerPlanet(a1.getString("PackageName"),a1.getString("Rate"));
                         packlist.add(packnm);
 
                     }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            packagename.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, packlist));
-                        }
-                    });
-
 
                 } else {
                     Toast.makeText(getActivity(), "Data not Found", Toast.LENGTH_LONG).show();
@@ -297,8 +300,22 @@ public class RegFragment extends Fragment {
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
+            List<String> lables = new ArrayList<String>();
 
+            for (int i = 0; i < packlist.size(); i++) {
+                lables.add(packlist.get(i).getPackagename());
+            }
 
+            // Creating adapter for spinner
+            spinnerpackageAdapter = new ArrayAdapter<String>(getActivity(),
+                    android.R.layout.simple_spinner_item, lables);
+
+            // Drop down layout style - list view with radio button
+            spinnerpackageAdapter
+                    .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            // attaching data adapter to spinner
+            packagename.setAdapter(spinnerpackageAdapter);
         }
     }
 
@@ -317,7 +334,7 @@ public class RegFragment extends Fragment {
 
             shh = new ServiceHandler();
 
-            String url = path + "Registration/PackageData";
+            String url = path + "Registration/AgentData";
 
             Log.d("Url: ", "> " + url);
 
@@ -336,17 +353,10 @@ public class RegFragment extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject a1 = jsonArray.getJSONObject(i);
 
-                        agent = a1.getString("AgentName");
-                        agentlist.add(agent);
+                        SpinnerAgentPlanet packnm = new SpinnerAgentPlanet(a1.getString("AgentName"));
+                        agentlist.add(packnm);
 
                     }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            spinneragentname.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, agentlist));
-                        }
-                    });
 
 
                 } else {
@@ -365,7 +375,22 @@ public class RegFragment extends Fragment {
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
+            List<String> agentlables = new ArrayList<String>();
 
+            for (int i = 0; i < agentlist.size(); i++) {
+                agentlables.add(agentlist.get(i).getAgentname());
+            }
+
+            // Creating adapter for spinner
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
+                    android.R.layout.simple_spinner_item, agentlables);
+
+            // Drop down layout style - list view with radio button
+            spinnerAdapter
+                    .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            // attaching data adapter to spinner
+            spinneragentname.setAdapter(spinnerAdapter);
 
         }
     }

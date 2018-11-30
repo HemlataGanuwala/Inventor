@@ -264,6 +264,7 @@ public class LoginPinFragment extends Fragment {
             try{
                 List<NameValuePair> params2 = new ArrayList<>();
                 params2.add(new BasicNameValuePair("Pin",pin1));
+                params2.add(new BasicNameValuePair("Password",null));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
 
