@@ -1,4 +1,4 @@
-package com.example.hema.cableapp;
+package com.example.hema.cableapp.Model;
 
 public class SpinnerPlanet {
 
