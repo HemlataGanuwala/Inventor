@@ -39,7 +39,7 @@ public class DashBoardFragment extends Fragment {
     CardView cardViewtodaycollection,cardViewreport,cardViewbillgenerate,cardViewbalancereport,cardViewactivedeactive,cardViewhelp;
     ServiceHandler shh;
     String path,cmonth,cyear,cdate,dailytotal,reportstotal,balancetotal,activetotal,deactivetotal;
-    int month,year;
+    int month,year,Status = 1;
     TextView textViewdailycollection,textViewreport,textViewbalance,textViewactive,textViewdeactive;
     ProgressDialog progress;
 
@@ -53,6 +53,9 @@ public class DashBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_dash_board, container, false);
+        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        path = globalVariable.getconstr();
+
         cardViewtodaycollection = (CardView)view.findViewById(R.id.cardtoday);
         cardViewreport = (CardView)view.findViewById(R.id.cardreport);
         cardViewbillgenerate = (CardView)view.findViewById(R.id.cardbillgenerate);
@@ -97,8 +100,7 @@ public class DashBoardFragment extends Fragment {
         cardViewbillgenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),DaliyCollectionActivity.class);
-                startActivity(intent);
+                new Billgenerate().execute();
             }
         });
 
@@ -191,12 +193,12 @@ public class DashBoardFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progress.setIndeterminate(true);
-            progress.setProgress(0);
-            progress.show();
+//            progress=new ProgressDialog(getActivity());
+//            progress.setMessage("Loading...");
+//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress.setIndeterminate(true);
+//            progress.setProgress(0);
+//            progress.show();
         }
         @Override
         protected String doInBackground(String... params)
@@ -235,6 +237,7 @@ public class DashBoardFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+//            progress.dismiss();
             textViewdailycollection.setText(dailytotal);
         }
     }
@@ -245,12 +248,12 @@ public class DashBoardFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progress.setIndeterminate(true);
-            progress.setProgress(0);
-            progress.show();
+//            progress=new ProgressDialog(getActivity());
+//            progress.setMessage("Loading...");
+//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress.setIndeterminate(true);
+//            progress.setProgress(0);
+//            progress.show();
         }
         @Override
         protected String doInBackground(String... params)
@@ -287,6 +290,7 @@ public class DashBoardFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+//            progress.dismiss();
             textViewreport.setText(reportstotal);
         }
     }
@@ -297,12 +301,12 @@ public class DashBoardFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progress.setIndeterminate(true);
-            progress.setProgress(0);
-            progress.show();
+//            progress=new ProgressDialog(getActivity());
+//            progress.setMessage("Loading...");
+//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress.setIndeterminate(true);
+//            progress.setProgress(0);
+//            progress.show();
         }
         @Override
         protected String doInBackground(String... params)
@@ -339,6 +343,7 @@ public class DashBoardFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+//            progress.dismiss();
             textViewbalance.setText(balancetotal);
         }
     }
@@ -349,12 +354,12 @@ public class DashBoardFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progress.setIndeterminate(true);
-            progress.setProgress(0);
-            progress.show();
+//            progress=new ProgressDialog(getActivity());
+//            progress.setMessage("Loading...");
+//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress.setIndeterminate(true);
+//            progress.setProgress(0);
+//            progress.show();
         }
         @Override
         protected String doInBackground(String... params)
@@ -391,6 +396,7 @@ public class DashBoardFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
             textViewactive.setText(activetotal);
         }
     }
@@ -401,12 +407,12 @@ public class DashBoardFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progress.setIndeterminate(true);
-            progress.setProgress(0);
-            progress.show();
+//            progress=new ProgressDialog(getActivity());
+//            progress.setMessage("Loading...");
+//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress.setIndeterminate(true);
+//            progress.setProgress(0);
+//            progress.show();
         }
         @Override
         protected String doInBackground(String... params)
@@ -443,7 +449,67 @@ public class DashBoardFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+//            progress.dismiss();
             textViewdeactive.setText(deactivetotal);
+        }
+    }
+
+    class Billgenerate extends AsyncTask<String, String, String>
+    {
+
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+        }
+        @Override
+        protected String doInBackground(String... params)
+        {
+            shh = new ServiceHandler();
+            String url =  path + "Registration/BillGeneration";
+
+            Log.d("Url: ", "> " + url);
+
+            try {
+                List<NameValuePair> params2 = new ArrayList<>();
+                params2.add(new BasicNameValuePair("Bmonth", cmonth));
+                params2.add(new BasicNameValuePair("Byear", cyear));
+
+                String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
+
+                if (jsonStr != null)
+                {
+                    JSONObject jObj = new JSONObject(jsonStr);
+                    Status = Integer.parseInt(jObj.getString("Status"));
+
+                } else {
+                    Toast.makeText(getActivity(), "Data Not Available", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (Status == 1)
+                    {
+                        Toast.makeText(getActivity(), "Bill Generated", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "Bill Generated Failed", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            //adapter.setOnItemClickListner(g);
         }
     }
 
