@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.hema.cableapp.Model.SpinnerAgentPlanet;
 import com.example.hema.cableapp.Model.SpinnerPlanet;
+import com.google.common.collect.Range;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -33,6 +37,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.example.hema.cableapp.R.string.nameerror;
 
 
 /**
@@ -59,6 +65,10 @@ public class RegFragment extends Fragment {
     String getpack,getrate;
     ArrayAdapter<String> spinnerpackageAdapter;
 
+    //defining AwesomeValidation object
+    private AwesomeValidation awesomeValidation;
+
+
     public RegFragment() {
         // Required empty public constructor
     }
@@ -72,6 +82,9 @@ public class RegFragment extends Fragment {
 
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         path = globalVariable.getconstr();
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
 
         editTextcname = (EditText)view.findViewById(R.id.etcustname);
         editTextaddress = (EditText)view.findViewById(R.id.etaddress);
@@ -87,6 +100,22 @@ public class RegFragment extends Fragment {
         buttondate=(Button) view.findViewById(R.id.btnsetdt);
         textViewdate=(TextView)view.findViewById(R.id.txtdate);
         spinneragentname=(Spinner)view.findViewById(R.id.spinagentname);
+
+
+        // Validation
+
+        awesomeValidation.addValidation(getActivity(), R.id.etcustname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", nameerror);
+        awesomeValidation.addValidation(getActivity(), R.id.etmobile, "^[2-9]{2}[0-9]{8}$",R.string.mobileerror);
+        awesomeValidation.addValidation(getActivity(), R.id.etarea, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.Areaerror);
+        awesomeValidation.addValidation(getActivity(), R.id.etnobox, "^[2-9]{2}[0-9]{8}$",R.string.Setupboxerror);
+
+
+
+
+
+
+
+
 
         new GetPackageData().execute();
         new GetAgentData().execute();
