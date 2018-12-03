@@ -5,11 +5,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
+    <string name="Dataerror">Enter a valid data</string>
     <string name="nameerror">Enter a valid name</string>
     <string name="mobileerror">Enter a valid mobile</string>
     <string name="Areaerror">Enter a valid Area</string>
     <string name="Setupboxerror">Enter a valid set top box no</string>
+
 
 
 

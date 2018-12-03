@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -34,6 +37,8 @@ public class PackageFragment extends Fragment {
     int Status = 1;
     ProgressDialog progress;
     EditText editTextpackagenm,editTextrate;
+    private AwesomeValidation awesomeValidation;
+
 
     public PackageFragment() {
         // Required empty public constructor
@@ -46,6 +51,8 @@ public class PackageFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_package, container, false);
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         path = globalVariable.getconstr();
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
 
         editTextpackagenm = (EditText)view.findViewById(R.id.etpackagename);
         editTextrate=(EditText)view.findViewById(R.id.etpackagerate);
@@ -54,7 +61,10 @@ public class PackageFragment extends Fragment {
         buttoninsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InsertData(); }
+                validdata();
+                InsertData();
+
+            }
         });
         return view;
 
@@ -66,9 +76,24 @@ public class PackageFragment extends Fragment {
     {
         packagenm = editTextpackagenm.getText().toString();
         rate = editTextrate.getText().toString();
-        new GetInsertData().execute();
+
+        if (awesomeValidation.validate()) {
+
+            new GetInsertData().execute();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Validation failed", Toast.LENGTH_LONG).show();
+        }
+
     }
 
+        public void validdata(){
+
+            awesomeValidation.addValidation(getActivity(), R.id.etpackagename, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.nameerror);
+            awesomeValidation.addValidation(getActivity(), R.id.etpackagerate, "^[0-9]$", R.string.Dataerror);
+
+        }
 
     public class GetInsertData extends AsyncTask<String, String, String> {
 

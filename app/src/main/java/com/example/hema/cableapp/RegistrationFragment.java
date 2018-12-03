@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.hema.cableapp.R.string.nameerror;
 
 
 /**
@@ -32,6 +38,7 @@ public class RegistrationFragment extends Fragment {
     int Status = 1;
     ProgressDialog progress;
     EditText editTextname,editTextaddress,editTextcity,editTextemail,editTextmobile,editTextuserid,editTextpassword,editTextpin,editTextagent;
+    private AwesomeValidation awesomeValidation;
 
 
     public RegistrationFragment() {
@@ -46,6 +53,8 @@ public class RegistrationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_registration, container, false);
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         path = globalVariable.getconstr();
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
 
         editTextname = (EditText)view.findViewById(R.id.txtname);
         editTextaddress = (EditText)view.findViewById(R.id.txtaddress);
@@ -61,6 +70,7 @@ public class RegistrationFragment extends Fragment {
         buttonregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                validdata();
                 InsertData();
             }
         });
@@ -79,7 +89,33 @@ public class RegistrationFragment extends Fragment {
         regpin = editTextpin.getText().toString();
         regnoofagent = editTextagent.getText().toString();
 
-        new GetInsertData().execute();
+        if (awesomeValidation.validate()) {
+
+            new GetInsertData().execute();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Validation failed", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    public void validdata(){
+
+        awesomeValidation.addValidation(getActivity(), R.id.txtname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", nameerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtmobno, "^[2-9]{2}[0-9]{8}$", R.string.mobileerror);
+
+        awesomeValidation.addValidation(getActivity(), R.id.txtemail, Patterns.EMAIL_ADDRESS, R.string.nameerror);
+
+        awesomeValidation.addValidation(getActivity(), R.id.txtpin, "^[0-9]{4}$", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtagentno, "^[0-9]{10}$", R.string.Dataerror);
+
+        awesomeValidation.addValidation(getActivity(), R.id.txtaddress, "", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtuserid, "", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtcity, "", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtpassword, "", R.string.Dataerror);
+
 
     }
 
