@@ -56,7 +56,7 @@ public class RegFragment extends Fragment {
     int year,month,day;
     int Status = 1;
     ProgressDialog progress;
-    EditText editTextcname,editTextaddress,editTextmobno,editTextarea,editTextnobox,editTextsetupdetails,editTextMCharges,editTextegdate;
+    EditText editTextcname,editTextaddress,editTextmobno,editTextarea,editTextnobox,editTextsetupdetails,editTextmcharges,editTextegdate;
     TextView textViewdate;
     ArrayList<SpinnerPlanet> packlist;
     ArrayList<SpinnerAgentPlanet> agentlist;
@@ -95,7 +95,7 @@ public class RegFragment extends Fragment {
         packagename = (Spinner) view.findViewById(R.id.spinpackage);
         packlist = new ArrayList<SpinnerPlanet>();
         agentlist = new ArrayList<SpinnerAgentPlanet>();
-        editTextMCharges=(EditText)view.findViewById(R.id.etrate);
+        editTextmcharges=(EditText)view.findViewById(R.id.etrate);
         buttonreg = (Button) view.findViewById(R.id.btncustregistration);
         buttondate=(Button) view.findViewById(R.id.btnsetdt);
         textViewdate=(TextView)view.findViewById(R.id.txtdate);
@@ -155,7 +155,7 @@ public class RegFragment extends Fragment {
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                getrate = packlist.get(position).getPackageRate();
-               editTextMCharges.setText(getrate);
+               editTextmcharges.setText(getrate);
            }
 
            @Override
@@ -176,7 +176,7 @@ public class RegFragment extends Fragment {
             nobox=editTextnobox.getText().toString();
             setupdetails=editTextsetupdetails.getText().toString();
             packagenm=packagename.getSelectedItem().toString();
-            monthlycharge=editTextMCharges.getText().toString();
+            monthlycharge=editTextmcharges.getText().toString();
             regdate=textViewdate.getText().toString();
             agentnm=spinneragentname.getSelectedItem().toString();
 
@@ -214,7 +214,7 @@ public class RegFragment extends Fragment {
 
                 List<NameValuePair> para = new ArrayList<>();
                 // para.add(new BasicNameValuePair("CustBal", balance));
-                para.add(new BasicNameValuePair("CustName", custname));
+//                para.add(new BasicNameValuePair("CustName", custname));
                 para.add(new BasicNameValuePair("CustName", custname));
                 para.add(new BasicNameValuePair("Address", address));
                 para.add(new BasicNameValuePair("MobileNo", mobno));
@@ -271,8 +271,8 @@ public class RegFragment extends Fragment {
             editTextarea.setText("");
             editTextnobox.setText("");
             editTextsetupdetails.setText("");
-            editTextegdate.setText("");
-            editTextMCharges.setText("");
+            textViewdate.setText("");
+            editTextmcharges.setText("");
 
         }
     }

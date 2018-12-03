@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -73,12 +75,30 @@ public class LoginPinFragment extends Fragment {
         buttoncross = (ImageButton) view.findViewById(R.id.btnclear);
         buttonloginpin = (Button) view.findViewById(R.id.btnpinlogin);
 
-        buttonloginpin.setOnClickListener(new View.OnClickListener() {
+//        buttonloginpin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LoginData();
+//            }
+//        });
+
+        textViewpin4.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 LoginData();
             }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
+
 
         buttoncross.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,7 +258,11 @@ public class LoginPinFragment extends Fragment {
 
         pin1 = textViewpin1.getText().toString() + textViewpin2.getText().toString() + textViewpin3.getText().toString() + textViewpin4.getText().toString();
 
-        new getloginData().execute();
+        if(!textViewpin4.getText().toString().equals(""))
+        {
+            new getloginData().execute();
+        }
+
 
     }
 

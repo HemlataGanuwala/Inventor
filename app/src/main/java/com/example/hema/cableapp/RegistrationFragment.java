@@ -173,7 +173,6 @@ public class RegistrationFragment extends Fragment {
             editTextpassword.setText("");
             editTextpin.setText("");
             editTextagent.setText("");
-            buttonregister.setText("");
 
         }
     }
