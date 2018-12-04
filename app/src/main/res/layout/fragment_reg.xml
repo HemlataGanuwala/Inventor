@@ -174,7 +174,6 @@
                             android:background="@drawable/textbg"
                             android:ems="10"
                             android:hint="Monthly Charge"
-                            android:inputType="number"
                             android:paddingLeft="10dp"
                             android:textStyle="bold" />
                     </LinearLayout>

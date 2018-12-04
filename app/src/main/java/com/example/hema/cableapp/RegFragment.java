@@ -34,6 +34,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -49,7 +51,17 @@ public class RegFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttonreg,buttondate;
-    String custname,address,mobno,area,nobox,setupdetails,monthlycharge,regdate,path,agentnm,packagenm;
+    String custname;
+    String address;
+    String mobno;
+    String area;
+    String nobox;
+    String setupdetails;
+    String monthlycharge;
+    String regdate;
+    String path;
+    String agentnm;
+    String packagenm;
     Spinner spinneragentname,packagename;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     int year,month,day;
@@ -62,6 +74,7 @@ public class RegFragment extends Fragment {
     SpinnerPlanet packnm;
     SpinnerAgentPlanet agentspinname;
     String getpack,getrate;
+    String packrate;
     ArrayAdapter<String> spinnerpackageAdapter;
 
     //defining AwesomeValidation object
