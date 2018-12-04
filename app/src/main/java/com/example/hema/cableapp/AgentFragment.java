@@ -69,7 +69,6 @@ public class AgentFragment extends Fragment {
     }
     public void validdata(){
         awesomeValidation.addValidation(getActivity(), R.id.etagentname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.nameerror);
-        awesomeValidation.addValidation(getActivity(), R.id.etagentpassword, " ", R.string.Dataerror);
 
     }
 

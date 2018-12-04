@@ -111,10 +111,10 @@ public class RegistrationFragment extends Fragment {
         awesomeValidation.addValidation(getActivity(), R.id.txtpin, "^[0-9]{4}$", R.string.Dataerror);
         awesomeValidation.addValidation(getActivity(), R.id.txtagentno, "^[0-9]{10}$", R.string.Dataerror);
 
-        awesomeValidation.addValidation(getActivity(), R.id.txtaddress, "", R.string.Dataerror);
-        awesomeValidation.addValidation(getActivity(), R.id.txtuserid, "", R.string.Dataerror);
-        awesomeValidation.addValidation(getActivity(), R.id.txtcity, "", R.string.Dataerror);
-        awesomeValidation.addValidation(getActivity(), R.id.txtpassword, "", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtaddress, "[a-zA-Z0-9_-]+", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtuserid, "[a-zA-Z0-9_-]+", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtcity, "[a-zA-Z0-9_-]+", R.string.Dataerror);
+        awesomeValidation.addValidation(getActivity(), R.id.txtpassword, "[a-zA-Z0-9_-]+", R.string.Dataerror);
 
 
     }
