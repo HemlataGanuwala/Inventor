@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.hema.cableapp.Model.SpinnerAgentPlanet;
 import com.example.hema.cableapp.Model.SpinnerPlanet;
+import com.google.common.collect.Range;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -35,6 +39,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 
 
 /**
@@ -72,6 +77,10 @@ public class RegFragment extends Fragment {
     String packrate;
     ArrayAdapter<String> spinnerpackageAdapter;
 
+    //defining AwesomeValidation object
+    private AwesomeValidation awesomeValidation;
+
+
     public RegFragment() {
         // Required empty public constructor
     }
@@ -83,8 +92,13 @@ public class RegFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_reg, container, false);
 
+
+
+
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         path = globalVariable.getconstr();
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         editTextcname = (EditText)view.findViewById(R.id.etcustname);
         editTextaddress = (EditText)view.findViewById(R.id.etaddress);
@@ -100,6 +114,16 @@ public class RegFragment extends Fragment {
         buttondate=(Button) view.findViewById(R.id.btnsetdt);
         textViewdate=(TextView)view.findViewById(R.id.txtdate);
         spinneragentname=(Spinner)view.findViewById(R.id.spinagentname);
+
+
+
+        // Validation
+
+
+
+
+
+
 
         new GetPackageData().execute();
         new GetAgentData().execute();
@@ -130,6 +154,7 @@ public class RegFragment extends Fragment {
         buttonreg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Valid();
                 Insert();
             }
         });
@@ -150,7 +175,21 @@ public class RegFragment extends Fragment {
 
        return view;
     }
+    public void Valid()
+    {
 
+        awesomeValidation.addValidation(getActivity(), R.id.etcustname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.nameerror);
+        awesomeValidation.addValidation(getActivity(), R.id.etmobile, "^[2-9]{2}[0-9]{8}$", R.string.mobileerror);
+        awesomeValidation.addValidation(getActivity(), R.id.etarea, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.Areaerror);
+        awesomeValidation.addValidation(getActivity(), R.id.etnobox, "^[1-9]", R.string.Setupboxerror);
+
+        awesomeValidation.addValidation(getActivity(), R.id.etaddress, "", R.string.Dataerror);
+
+        awesomeValidation.addValidation(getActivity(), R.id.etsetboxdetail, "", R.string.Dataerror);
+
+
+
+    }
         public  void Insert()
         {
             custname=editTextcname.getText().toString();
@@ -164,7 +203,14 @@ public class RegFragment extends Fragment {
             regdate=textViewdate.getText().toString();
             agentnm=spinneragentname.getSelectedItem().toString();
 
-            new GetInsertData().execute();
+            if (awesomeValidation.validate()) {
+
+                new GetInsertData().execute();
+            }
+            else
+            {
+                Toast.makeText(getActivity(), "Validation failed", Toast.LENGTH_LONG).show();
+            }
 
         }
 

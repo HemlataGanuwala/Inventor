@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -34,6 +37,7 @@ public class AgentFragment extends Fragment {
     int Status = 1;
     ProgressDialog progress;
     EditText editTextagentnm,editTextpassword;
+    private AwesomeValidation awesomeValidation;
 
     public AgentFragment() {
         // Required empty public constructor
@@ -46,6 +50,7 @@ public class AgentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_agent, container, false);
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         path = globalVariable.getconstr();
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         editTextagentnm = (EditText)view.findViewById(R.id.etagentname);
         editTextpassword=(EditText)view.findViewById(R.id.etagentpassword);
@@ -54,6 +59,7 @@ public class AgentFragment extends Fragment {
         buttonregistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                validdata();
                 InsertData();
             }
         });
@@ -61,12 +67,25 @@ public class AgentFragment extends Fragment {
         // Inflate the layout for this fragment
        // return inflater.inflate(R.layout.fragment_agent, container, false);
     }
+    public void validdata(){
+        awesomeValidation.addValidation(getActivity(), R.id.etagentname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.nameerror);
+        awesomeValidation.addValidation(getActivity(), R.id.etagentpassword, " ", R.string.Dataerror);
+
+    }
 
     public void InsertData()
     {
         agentnm = editTextagentnm.getText().toString();
         password = editTextpassword.getText().toString();
-        new GetInsertData().execute();
+        if (awesomeValidation.validate()) {
+
+            new GetInsertData().execute();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Validation failed", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public class GetInsertData extends AsyncTask<String, String, String> {
