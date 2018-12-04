@@ -42,7 +42,7 @@ public class LoginPinFragment extends Fragment {
     TextView textViewpin1,textViewpin2,textViewpin3,textViewpin4;
     Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0,buttonloginpin;
     ImageButton buttonpasswordshow,buttoncross;
-    int flag=1;
+    int Status = 1;
 
     public LoginPinFragment() {
         // Required empty public constructor
@@ -73,7 +73,7 @@ public class LoginPinFragment extends Fragment {
         button9 = (Button)view.findViewById(R.id.btn9);
         buttonpasswordshow = (ImageButton) view.findViewById(R.id.btneye);
         buttoncross = (ImageButton) view.findViewById(R.id.btnclear);
-        buttonloginpin = (Button) view.findViewById(R.id.btnpinlogin);
+
 
 //        buttonloginpin.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -293,27 +293,8 @@ public class LoginPinFragment extends Fragment {
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
 
                 if (jsonStr != null) {
-                    JSONObject c1 = new JSONObject(jsonStr);
-                    JSONArray classArray = c1.getJSONArray("Response");
-                    //JSONArray jsonarry = new JSONArray(jsonStr);
-
-                    for (int i = 0; i < classArray.length(); i++) {
-                        JSONObject a1 = classArray.getJSONObject(i);
-
-                        pin2 = a1.getString("Pin");
-
-                    }
-
-
-                    if(classArray.length() == 0)
-                    {
-                        flag = 0;
-                    }
-                    else
-                    {
-                        flag = 1;
-
-                    }
+                    JSONObject jObj = new JSONObject(jsonStr);
+                    Status = Integer.parseInt(jObj.getString("Status"));
 
                 }
                 else
@@ -334,15 +315,24 @@ public class LoginPinFragment extends Fragment {
 
             progress.dismiss();
 
-            if (flag == 1)
+            if (Status == 1)
             {
                 Toast.makeText(getActivity(), "Login Successfully", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),MainActivity.class);
                 startActivity(intent);
+                textViewpin1.setText("");
+                textViewpin2.setText("");
+                textViewpin3.setText("");
+                textViewpin4.setText("");
                     //finish();
             }
             else {
-                Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_LONG).show(); }
+                Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_LONG).show();
+                textViewpin1.setText("");
+                textViewpin2.setText("");
+                textViewpin3.setText("");
+                textViewpin4.setText("");
+            }
         }
 
 

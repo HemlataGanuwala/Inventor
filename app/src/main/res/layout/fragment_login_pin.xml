@@ -41,6 +41,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="-"
+            android:inputType="numberPassword"
             android:textStyle="bold" />
 
         <TextView
@@ -52,6 +53,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="-"
+            android:inputType="numberPassword"
             android:textStyle="bold" />
 
         <TextView
@@ -63,6 +65,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="-"
+            android:inputType="numberPassword"
             android:textStyle="bold" />
 
         <TextView
@@ -75,6 +78,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="-"
+            android:inputType="numberPassword"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -244,14 +248,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnpinlogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/buttonbg"
-            android:text="Login" />
     </LinearLayout>
 
 </LinearLayout>

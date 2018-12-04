@@ -503,6 +503,10 @@ public class DashBoardFragment extends Fragment {
                     {
                         Toast.makeText(getActivity(), "Bill Generated", Toast.LENGTH_LONG).show();
                     }
+                    else if(Status == 2)
+                    {
+                        Toast.makeText(getActivity(), "Bill Already Generated", Toast.LENGTH_LONG).show();
+                    }
                     else
                     {
                         Toast.makeText(getActivity(), "Bill Generated Failed", Toast.LENGTH_LONG).show();

@@ -115,16 +115,6 @@ public class RegFragment extends Fragment {
         textViewdate=(TextView)view.findViewById(R.id.txtdate);
         spinneragentname=(Spinner)view.findViewById(R.id.spinagentname);
 
-
-
-        // Validation
-
-
-
-
-
-
-
         new GetPackageData().execute();
         new GetAgentData().execute();
 
