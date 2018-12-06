@@ -1,10 +1,17 @@
 package com.example.hema.cableapp;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -34,11 +41,12 @@ public class RegistrationFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttonregister;
-    String regname,regaddress,regcity,regemail,regmobileno,reguserid,regpassword,regpin,regnoofagent,path;
+    String regname, regaddress, regcity, regemail, regmobileno, reguserid, regpassword, regpin, regnoofagent, path, imeino, deviceno;
     int Status = 1;
     ProgressDialog progress;
-    EditText editTextname,editTextaddress,editTextcity,editTextemail,editTextmobile,editTextuserid,editTextpassword,editTextpin,editTextagent;
+    EditText editTextname, editTextaddress, editTextcity, editTextemail, editTextmobile, editTextuserid, editTextpassword, editTextpin, editTextagent;
     private AwesomeValidation awesomeValidation;
+    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
 
 
     public RegistrationFragment() {
@@ -56,16 +64,19 @@ public class RegistrationFragment extends Fragment {
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
 
-        editTextname = (EditText)view.findViewById(R.id.txtname);
-        editTextaddress = (EditText)view.findViewById(R.id.txtaddress);
-        editTextcity = (EditText)view.findViewById(R.id.txtcity);
-        editTextemail = (EditText)view.findViewById(R.id.txtemail);
-        editTextmobile = (EditText)view.findViewById(R.id.txtmobno);
-        editTextuserid = (EditText)view.findViewById(R.id.txtuserid);
-        editTextpassword = (EditText)view.findViewById(R.id.txtpassword);
-        editTextpin = (EditText)view.findViewById(R.id.txtpin);
-        editTextagent = (EditText)view.findViewById(R.id.txtagentno);
+        editTextname = (EditText) view.findViewById(R.id.txtname);
+        editTextaddress = (EditText) view.findViewById(R.id.txtaddress);
+        editTextcity = (EditText) view.findViewById(R.id.txtcity);
+        editTextemail = (EditText) view.findViewById(R.id.txtemail);
+        editTextmobile = (EditText) view.findViewById(R.id.txtmobno);
+        editTextuserid = (EditText) view.findViewById(R.id.txtuserid);
+        editTextpassword = (EditText) view.findViewById(R.id.txtpassword);
+        editTextpin = (EditText) view.findViewById(R.id.txtpin);
+        editTextagent = (EditText) view.findViewById(R.id.txtagentno);
         buttonregister = (Button) view.findViewById(R.id.btnadminregister);
+
+//        getPhoneNumber();
+        loadIMEI();
 
         buttonregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +87,99 @@ public class RegistrationFragment extends Fragment {
         });
         return view;
     }
+
+    public void loadIMEI() {
+        // Check if the READ_PHONE_STATE permission is already available.
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // READ_PHONE_STATE permission has not been granted.
+            requestReadPhoneStatePermission();
+        } else {
+            // READ_PHONE_STATE permission is already been granted.
+            doPermissionGrantedStuffs();
+        }
+    }
+
+    private void requestReadPhoneStatePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.READ_PHONE_STATE)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // For example if the user has previously denied the permission.
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Permission Request")
+//                    .setMessage(getString(R.string.permission_read_phone_state_rationale))
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //re-request
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{Manifest.permission.READ_PHONE_STATE},
+                                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+                        }
+                    })
+//                    .setIcon(R.drawable.onlinlinew_warning_sign)
+                    .show();
+        } else {
+            // READ_PHONE_STATE permission has not been granted yet. Request it directly.
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE},
+                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+        }
+    }
+
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_PHONE_STATE) {
+            // Received permission result for READ_PHONE_STATE permission.est.");
+            // Check if the only required permission has been granted
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // READ_PHONE_STATE permission has been granted, proceed with displaying IMEI Number
+                //alertAlert(getString(R.string.permision_available_read_phone_state));
+                doPermissionGrantedStuffs();
+            } else {
+//                alertAlert(getString(R.string.permissions_not_granted_read_phone_state));
+            }
+        }
+    }
+
+    private void alertAlert(String msg) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Permission Request")
+                .setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do somthing here
+                    }
+                })
+//                .setIcon(R.drawable.onlinlinew_warning_sign)
+                .show();
+    }
+
+
+    public void doPermissionGrantedStuffs() {
+        //Have an  object of TelephonyManager
+        TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        //Get IMEI Number of Phone  //////////////// for this example i only need the IMEI
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        imeino = tm.getDeviceId();
+
+    }
+
 
     public void InsertData()
     {
@@ -159,6 +263,7 @@ public class RegistrationFragment extends Fragment {
                 para.add(new BasicNameValuePair("Password", regpassword));
                 para.add(new BasicNameValuePair("Pin", regpin));
                 para.add(new BasicNameValuePair("NoOfAgent", regnoofagent));
+                para.add(new BasicNameValuePair("IMEINo", imeino));
 
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);

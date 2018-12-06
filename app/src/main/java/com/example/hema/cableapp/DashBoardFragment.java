@@ -238,7 +238,14 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            progress.dismiss();
-            textViewdailycollection.setText(dailytotal);
+            if (dailytotal == null)
+            {
+                dailytotal = "0";
+            }
+            else {
+                textViewdailycollection.setText(dailytotal);
+            }
+
         }
     }
 
@@ -291,7 +298,15 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            progress.dismiss();
-            textViewreport.setText(reportstotal);
+            if (reportstotal == null)
+            {
+                reportstotal = "0";
+            }
+            else
+            {
+                textViewreport.setText(reportstotal);
+            }
+
         }
     }
 
@@ -344,7 +359,16 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            progress.dismiss();
-            textViewbalance.setText(balancetotal);
+
+            if (balancetotal == null)
+            {
+                balancetotal = "0";
+            }
+            else
+            {
+                textViewbalance.setText(balancetotal);
+            }
+
         }
     }
 
@@ -397,7 +421,15 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            textViewactive.setText(activetotal);
+            if (activetotal == null)
+            {
+                activetotal = "0";
+            }
+            else
+            {
+                textViewactive.setText(activetotal);
+            }
+
         }
     }
 
@@ -450,7 +482,15 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            progress.dismiss();
-            textViewdeactive.setText(deactivetotal);
+            if (deactivetotal == null)
+            {
+                deactivetotal = "0";
+            }
+            else
+            {
+                textViewdeactive.setText(deactivetotal);
+            }
+
         }
     }
 
