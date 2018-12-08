@@ -173,10 +173,18 @@ public class RegFragment extends Fragment {
         awesomeValidation.addValidation(getActivity(), R.id.etarea, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.Areaerror);
         awesomeValidation.addValidation(getActivity(), R.id.etnobox, "^[1-9]", R.string.Setupboxerror);
 
-        awesomeValidation.addValidation(getActivity(), R.id.etaddress, "[a-zA-Z0-9_-]+", R.string.Dataerror);
+//        awesomeValidation.addValidation(getActivity(), R.id.etaddress, "[a-zA-Z0-9_-]+", R.string.Dataerror);
 
-        awesomeValidation.addValidation(getActivity(), R.id.etsetboxdetail, "[a-zA-Z0-9_-]+", R.string.Dataerror);
+//        awesomeValidation.addValidation(getActivity(), R.id.etsetboxdetail, "[a-zA-Z0-9_-]+", R.string.Dataerror);
+        if(editTextaddress.equals(""))
+        {
+            Toast.makeText(getActivity(), "Fill Address", Toast.LENGTH_LONG).show();
+        }
 
+        if(editTextsetupdetails.equals(""))
+        {
+            Toast.makeText(getActivity(), "Add Setupbox", Toast.LENGTH_LONG).show();
+        }
 
 
     }

@@ -242,10 +242,7 @@ public class DashBoardFragment extends Fragment {
             {
                 dailytotal = "0";
             }
-            else {
-                textViewdailycollection.setText(dailytotal);
-            }
-
+            textViewdailycollection.setText(dailytotal);
         }
     }
 
@@ -302,10 +299,7 @@ public class DashBoardFragment extends Fragment {
             {
                 reportstotal = "0";
             }
-            else
-            {
-                textViewreport.setText(reportstotal);
-            }
+            textViewreport.setText(reportstotal);
 
         }
     }
@@ -364,10 +358,7 @@ public class DashBoardFragment extends Fragment {
             {
                 balancetotal = "0";
             }
-            else
-            {
-                textViewbalance.setText(balancetotal);
-            }
+            textViewbalance.setText(balancetotal);
 
         }
     }
@@ -425,10 +416,7 @@ public class DashBoardFragment extends Fragment {
             {
                 activetotal = "0";
             }
-            else
-            {
-                textViewactive.setText(activetotal);
-            }
+            textViewactive.setText(activetotal);
 
         }
     }
@@ -486,10 +474,7 @@ public class DashBoardFragment extends Fragment {
             {
                 deactivetotal = "0";
             }
-            else
-            {
-                textViewdeactive.setText(deactivetotal);
-            }
+            textViewdeactive.setText(deactivetotal);
 
         }
     }
