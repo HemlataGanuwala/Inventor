@@ -29,5 +29,6 @@ public class LoginActivity extends AppCompatActivity {
         adapter.AddFragment(new RegistrationFragment(),"Registration");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabTextColors(getResources().getColor(R.color.colortextbg), getResources().getColor(R.color.colorPrimary));
     }
 }

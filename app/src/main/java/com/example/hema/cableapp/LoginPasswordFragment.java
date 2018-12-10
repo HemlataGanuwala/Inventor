@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -39,8 +40,9 @@ public class LoginPasswordFragment extends Fragment {
     View view;
     ProgressDialog progress;
     ServiceHandler shh;
-    String path,username,password,user1,pass1,regstatus,regstatus1,imeino,Message;
+    String path,username,password,user1,pass1,regstatus,regstatus1,imeino,Message,operatorno,cmonth,cyear;
     EditText editTextuser,editTextpassword;
+    int month,year,day;
     Button buttonlogin;
     int Status=1;
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
@@ -63,6 +65,8 @@ public class LoginPasswordFragment extends Fragment {
         editTextuser = (EditText)view.findViewById(R.id.etuserid);
         editTextpassword = (EditText)view.findViewById(R.id.etloginpass);
         buttonlogin = (Button)view.findViewById(R.id.btnlogin);
+
+        Submitdata();
 
         loadIMEI();
 
@@ -180,6 +184,63 @@ public class LoginPasswordFragment extends Fragment {
 
     }
 
+    public void Submitdata() {
+
+        Calendar c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+
+        if (month == 0) {
+            cmonth = "DEC";
+            cyear = String.valueOf(year);
+        }
+        if (month == 1) {
+            cmonth = "JAN";
+            cyear = String.valueOf(year);
+        }
+        if (month == 2) {
+            cmonth = "FEB";
+            cyear = String.valueOf(year);
+        }
+        if (month == 3) {
+            cmonth = "MAR";
+            cyear = String.valueOf(year);
+        }
+        if (month == 4) {
+            cmonth = "APR";
+            cyear = String.valueOf(year);
+        }
+        if (month == 5) {
+            cmonth = "MAY";
+            cyear = String.valueOf(year);
+        }
+        if (month == 6) {
+            cmonth = "JUN";
+            cyear = String.valueOf(year);
+        }
+        if (month == 7) {
+            cmonth = "JUL";
+            cyear = String.valueOf(year);
+        }
+        if (month == 8) {
+            cmonth = "AUG";
+            cyear = String.valueOf(year);
+        }
+        if (month == 9) {
+            cmonth = "SEP";
+            cyear = String.valueOf(year);
+        }
+        if (month == 10) {
+            cmonth = "OCT";
+            cyear = String.valueOf(year);
+        }
+        if (month == 11) {
+            cmonth = "NOV";
+            cyear = String.valueOf(year);
+        }
+
+    }
+
     class getloginData extends AsyncTask<Void, Void, String>
     {
         @Override
@@ -235,6 +296,10 @@ public class LoginPasswordFragment extends Fragment {
             {
                     Toast.makeText(getActivity(), "Login Successfully", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(),MainActivity.class);
+                    intent.putExtra("a1",imeino);
+                    intent.putExtra("a2",operatorno);
+                    intent.putExtra("a3",cmonth);
+                    intent.putExtra("a4",cyear);
                     startActivity(intent);
                     //finish();
 

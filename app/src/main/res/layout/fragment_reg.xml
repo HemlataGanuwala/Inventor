@@ -58,9 +58,10 @@
                         android:background="@drawable/textbg"
                         android:ems="10"
                         android:hint="Customer Name"
-                        android:inputType="textPersonName"
+                        android:inputType="textCapWords|textPersonName"
                         android:paddingLeft="10dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:theme="@style/AccentAppTheme" />
 
                     <EditText
                         android:id="@+id/etaddress"
@@ -72,9 +73,10 @@
                         android:background="@drawable/textbg"
                         android:ems="10"
                         android:hint="Address"
-                        android:inputType="textPostalAddress"
+                        android:inputType="textCapSentences|textPostalAddress"
                         android:paddingLeft="10dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:theme="@style/AccentAppTheme" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -94,7 +96,8 @@
                             android:hint="Mobile No."
                             android:inputType="phone"
                             android:paddingLeft="10dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:theme="@style/AccentAppTheme"/>
 
                         <EditText
                             android:id="@+id/etarea"
@@ -107,9 +110,10 @@
                             android:background="@drawable/textbg"
                             android:ems="10"
                             android:hint="Area"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapWords|textPersonName"
                             android:paddingLeft="10dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:theme="@style/AccentAppTheme" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -130,7 +134,8 @@
                             android:hint="No. Box"
                             android:inputType="number"
                             android:paddingLeft="10dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:theme="@style/AccentAppTheme"/>
 
                         <EditText
                             android:id="@+id/etsetboxdetail"
@@ -143,9 +148,10 @@
                             android:background="@drawable/textbg"
                             android:ems="10"
                             android:hint="Setupbox Details"
-                            android:inputType="textMultiLine"
+                            android:inputType="textCapWords|textMultiLine"
                             android:paddingLeft="10dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:theme="@style/AccentAppTheme" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -162,7 +168,8 @@
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:background="@drawable/textbg"
-                            android:paddingLeft="10dp" />
+                            android:paddingLeft="10dp"
+                            android:theme="@style/AccentAppTheme"/>
 
                         <EditText
                             android:id="@+id/etrate"
@@ -175,7 +182,8 @@
                             android:ems="10"
                             android:hint="Monthly Charge"
                             android:paddingLeft="10dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:theme="@style/AccentAppTheme"/>
                     </LinearLayout>
 
                     <Spinner
@@ -186,7 +194,8 @@
                         android:layout_marginTop="7dp"
                         android:layout_marginRight="50dp"
                         android:background="@drawable/textbg"
-                        android:paddingLeft="10dp" />
+                        android:paddingLeft="10dp"
+                        android:theme="@style/AccentAppTheme"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -206,7 +215,8 @@
                             android:hint="Date"
                             android:paddingLeft="10dp"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:theme="@style/AccentAppTheme"/>
 
                         <Button
                             android:id="@+id/btnsetdt"
@@ -223,24 +233,28 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="10dp"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView19"
+                            android:id="@+id/tvregad"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:layout_weight="1"
+                            android:layout_weight=".30"
                             android:background="@drawable/textbg" />
 
-                        <Switch
-                            android:id="@+id/switch3"
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/switch_button"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Active/Deactive" />
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
 
                     </LinearLayout>
+
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"

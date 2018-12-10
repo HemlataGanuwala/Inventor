@@ -24,8 +24,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="285dp"
-        android:layout_height="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="40dp"
@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/tvpin1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
@@ -42,11 +42,13 @@
             android:gravity="center"
             android:hint="-"
             android:inputType="numberPassword"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvpin2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/box"
@@ -54,11 +56,13 @@
             android:gravity="center"
             android:hint="-"
             android:inputType="numberPassword"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvpin3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/box"
@@ -66,11 +70,13 @@
             android:gravity="center"
             android:hint="-"
             android:inputType="numberPassword"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvpin4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
@@ -79,7 +85,9 @@
             android:gravity="center"
             android:hint="-"
             android:inputType="numberPassword"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
 
@@ -100,7 +108,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="7"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
@@ -111,7 +119,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="8"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
@@ -122,7 +130,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="9"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <ImageButton
@@ -152,7 +160,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="4"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
@@ -163,7 +171,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="5"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
@@ -174,7 +182,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="6"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
@@ -185,7 +193,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="0"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -206,7 +214,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="1"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
@@ -217,7 +225,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="2"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
@@ -228,7 +236,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="3"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <ImageButton
@@ -237,7 +245,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_clear_black_24dp" />
+            android:src="@drawable/icon_backspace" />
 
     </LinearLayout>
 

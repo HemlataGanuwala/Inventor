@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -14,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +64,6 @@ public class RegistrationFragment extends Fragment {
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         path = globalVariable.getconstr();
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-
 
         editTextname = (EditText) view.findViewById(R.id.txtname);
         editTextaddress = (EditText) view.findViewById(R.id.txtaddress);

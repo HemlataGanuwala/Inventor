@@ -38,7 +38,7 @@ public class DashBoardFragment extends Fragment {
     View view;
     CardView cardViewtodaycollection,cardViewreport,cardViewbillgenerate,cardViewbalancereport,cardViewactivedeactive,cardViewhelp;
     ServiceHandler shh;
-    String path,cmonth,cyear,cdate,dailytotal,reportstotal,balancetotal,activetotal,deactivetotal;
+    String path,cmonth,cyear,cdate,dailytotal,reportstotal,balancetotal,activetotal,deactivetotal,imeino,operatorno,dtot;
     int month,year,Status = 1;
     TextView textViewdailycollection,textViewreport,textViewbalance,textViewactive,textViewdeactive;
     ProgressDialog progress;
@@ -69,6 +69,8 @@ public class DashBoardFragment extends Fragment {
         textViewdeactive = (TextView)view.findViewById(R.id.tvdashdeactive);
 
         Submitdata();
+
+        Display();
 
         Date d = new Date();
         CharSequence g = DateFormat.format("dd/MM/yyyy", d.getTime());
@@ -187,18 +189,31 @@ public class DashBoardFragment extends Fragment {
 
     }
 
+    public void Display()
+    {
+        Intent intent = getActivity().getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null)
+        {
+            imeino = (String)bundle.get("a1");
+            operatorno = (String)bundle.get("a2");
+            cmonth = (String)bundle.get("a3");
+            cyear = (String)bundle.get("a4");
+        }
+    }
+
     class FetchList1 extends AsyncTask<String, String, String>
     {
 
         protected void onPreExecute()
         {
             super.onPreExecute();
-//            progress=new ProgressDialog(getActivity());
-//            progress.setMessage("Loading...");
-//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//            progress.setIndeterminate(true);
-//            progress.setProgress(0);
-//            progress.show();
+            progress=new ProgressDialog(getActivity());
+            progress.setMessage("Loading...");
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.show();
         }
         @Override
         protected String doInBackground(String... params)
@@ -214,6 +229,8 @@ public class DashBoardFragment extends Fragment {
                 params2.add(new BasicNameValuePair("PaymentDate2", cdate));
                 params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 
@@ -237,12 +254,14 @@ public class DashBoardFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-//            progress.dismiss();
-            if (dailytotal == null)
+            progress.dismiss();
+            if (dailytotal.equals("null"))
             {
                 dailytotal = "0";
             }
             textViewdailycollection.setText(dailytotal);
+
+
         }
     }
 
@@ -271,6 +290,8 @@ public class DashBoardFragment extends Fragment {
                 List<NameValuePair> params2 = new ArrayList<>();
                 params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 
@@ -295,7 +316,7 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            progress.dismiss();
-            if (reportstotal == null)
+            if (reportstotal.equals("null"))
             {
                 reportstotal = "0";
             }
@@ -329,6 +350,8 @@ public class DashBoardFragment extends Fragment {
                 List<NameValuePair> params2 = new ArrayList<>();
                 params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 
@@ -354,7 +377,7 @@ public class DashBoardFragment extends Fragment {
             super.onPostExecute(s);
 //            progress.dismiss();
 
-            if (balancetotal == null)
+            if (balancetotal.equals("null"))
             {
                 balancetotal = "0";
             }
@@ -388,6 +411,8 @@ public class DashBoardFragment extends Fragment {
                 List<NameValuePair> params2 = new ArrayList<>();
                 params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 
@@ -412,7 +437,7 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if (activetotal == null)
+            if (activetotal.equals("null"))
             {
                 activetotal = "0";
             }
@@ -446,6 +471,8 @@ public class DashBoardFragment extends Fragment {
                 List<NameValuePair> params2 = new ArrayList<>();
                 params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 
@@ -470,7 +497,7 @@ public class DashBoardFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            progress.dismiss();
-            if (deactivetotal == null)
+            if (deactivetotal.equals("null"))
             {
                 deactivetotal = "0";
             }
@@ -498,6 +525,8 @@ public class DashBoardFragment extends Fragment {
                 List<NameValuePair> params2 = new ArrayList<>();
                 params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 

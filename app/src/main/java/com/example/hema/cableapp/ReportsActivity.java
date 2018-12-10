@@ -1,5 +1,6 @@
 package com.example.hema.cableapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.example.hema.cableapp.Model.DailyCollectionPlanet;
 import com.example.hema.cableapp.Model.ReportPlanet;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +27,7 @@ public class ReportsActivity extends AppCompatActivity {
 
     List<ReportPlanet> mPlanetlist1 = new ArrayList<ReportPlanet>();
     ReportAdapter adapter;
-    String path,custnm,mobile,paidamt1,paidamt2;
+    String path,custnm,mobile,paidamt1,paidamt2,imeino,operatorno,cmonth,cyear;
     ServiceHandler shh;
     RecyclerView recyclerView;
 
@@ -42,6 +44,21 @@ public class ReportsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rcdaliydate);
         recyclerView.setLayoutManager(new LinearLayoutManager(ReportsActivity.this));
     }
+
+    public void Display()
+    {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null)
+        {
+            imeino = (String)bundle.get("a1");
+            operatorno = (String)bundle.get("a2");
+            cmonth = (String)bundle.get("a3");
+            cyear = (String)bundle.get("a4");
+        }
+    }
+
+
 
     class FetchList1 extends AsyncTask<String, String, String>
     {
@@ -60,6 +77,10 @@ public class ReportsActivity extends AppCompatActivity {
 
             try {
                 List<NameValuePair> params2 = new ArrayList<>();
+                params2.add(new BasicNameValuePair("Bmonth", cmonth));
+                params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.GET, null);
 

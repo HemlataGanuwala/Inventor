@@ -2,6 +2,7 @@ package com.example.hema.cableapp;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,7 +33,7 @@ public class AgentFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttonregistration;
-    String agentnm,path,password;
+    String agentnm,path,password,imeino,operatorno;
 
     int Status = 1;
     ProgressDialog progress;
@@ -70,6 +71,17 @@ public class AgentFragment extends Fragment {
     public void validdata(){
         awesomeValidation.addValidation(getActivity(), R.id.etagentname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.nameerror);
 
+    }
+
+    public void Display()
+    {
+        Intent intent = getActivity().getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null)
+        {
+            imeino = (String)bundle.get("a1");
+            operatorno = (String)bundle.get("a2");
+        }
     }
 
     public void InsertData()
@@ -119,7 +131,8 @@ public class AgentFragment extends Fragment {
                 // para.add(new BasicNameValuePair("CustBal", balance));
                 para.add(new BasicNameValuePair("AgentName", agentnm));
                 para.add(new BasicNameValuePair("Password", password));
-
+                para.add(new BasicNameValuePair("IMEINo", imeino));
+                para.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);
                 if (jsonStr != null) {

@@ -3,6 +3,7 @@ package com.example.hema.cableapp;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -28,6 +29,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.hema.cableapp.Model.SpinnerAgentPlanet;
 import com.example.hema.cableapp.Model.SpinnerPlanet;
 import com.google.common.collect.Range;
+import com.suke.widget.SwitchButton;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -61,14 +63,14 @@ public class RegFragment extends Fragment {
     String regdate;
     String path;
     String agentnm;
-    String packagenm;
+    String packagenm,imeino,operatorno,actdact;
     Spinner spinneragentname,packagename;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     int year,month,day;
     int Status = 1;
     ProgressDialog progress;
     EditText editTextcname,editTextaddress,editTextmobno,editTextarea,editTextnobox,editTextsetupdetails,editTextmcharges,editTextegdate;
-    TextView textViewdate;
+    TextView textViewdate,textViewactiveDeactive;
     ArrayList<SpinnerPlanet> packlist;
     ArrayList<SpinnerAgentPlanet> agentlist;
     SpinnerPlanet packnm;
@@ -113,12 +115,42 @@ public class RegFragment extends Fragment {
         buttonreg = (Button) view.findViewById(R.id.btncustregistration);
         buttondate=(Button) view.findViewById(R.id.btnsetdt);
         textViewdate=(TextView)view.findViewById(R.id.txtdate);
+        textViewactiveDeactive=(TextView)view.findViewById(R.id.tvregad);
         spinneragentname=(Spinner)view.findViewById(R.id.spinagentname);
+
+        Display();
 
         new GetPackageData().execute();
         new GetAgentData().execute();
 
-       buttondate.setOnClickListener(new View.OnClickListener() {
+        com.suke.widget.SwitchButton switchButton = (com.suke.widget.SwitchButton)
+                view.findViewById(R.id.switch_button);
+
+        switchButton.setChecked(true);
+        switchButton.isChecked();
+        switchButton.toggle();     //switch state
+        switchButton.toggle(false);//switch without animation
+        switchButton.setShadowEffect(true);//disable shadow effect
+        switchButton.setEnabled(false);//disable button
+        switchButton.setEnableEffect(false);//disable the switch animation
+        switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                if (textViewactiveDeactive.equals(""))
+                {
+                    textViewactiveDeactive.setText("Active");
+                }
+                else
+                {
+                    textViewactiveDeactive.setText("Deactive");
+                }
+
+
+            }
+        });
+
+
+        buttondate.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Calendar calendar = Calendar.getInstance();
@@ -200,6 +232,7 @@ public class RegFragment extends Fragment {
             monthlycharge=editTextmcharges.getText().toString();
             regdate=textViewdate.getText().toString();
             agentnm=spinneragentname.getSelectedItem().toString();
+            actdact=textViewactiveDeactive.getText().toString();
 
             if (awesomeValidation.validate()) {
 
@@ -210,6 +243,17 @@ public class RegFragment extends Fragment {
                 Toast.makeText(getActivity(), "Validation failed", Toast.LENGTH_LONG).show();
             }
 
+        }
+
+        public void Display()
+        {
+            Intent intent = getActivity().getIntent();
+            Bundle bundle = intent.getExtras();
+            if(bundle != null)
+            {
+                imeino = (String)bundle.get("a1");
+                operatorno = (String)bundle.get("a2");
+            }
         }
 
     public class GetInsertData extends AsyncTask<String, String, String> {
@@ -253,6 +297,9 @@ public class RegFragment extends Fragment {
                 para.add(new BasicNameValuePair("PackageRate", monthlycharge));
                 para.add(new BasicNameValuePair("RegistrationDate", regdate));
                 para.add(new BasicNameValuePair("AgentName", agentnm));
+                para.add(new BasicNameValuePair("Status", actdact));
+                para.add(new BasicNameValuePair("OperatorCode", operatorno));
+                para.add(new BasicNameValuePair("IMEINo", imeino));
 
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);
@@ -329,10 +376,11 @@ public class RegFragment extends Fragment {
 
                 List<NameValuePair> para = new ArrayList<>();
                 // para.add(new BasicNameValuePair("CustBal", balance));
+                para.add(new BasicNameValuePair("IMEINo", imeino));
+                para.add(new BasicNameValuePair("OperatorCode", operatorno));
 
 
-
-                String jsonStr = shh.makeServiceCall(url, ServiceHandler.GET, null);
+                String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);
                 if (jsonStr != null) {
                     JSONObject jObj = new JSONObject(jsonStr);
                     JSONArray jsonArray=jObj.getJSONArray("Response");
@@ -403,10 +451,11 @@ public class RegFragment extends Fragment {
 
                 List<NameValuePair> para = new ArrayList<>();
                 // para.add(new BasicNameValuePair("CustBal", balance));
+                para.add(new BasicNameValuePair("IMEINo", imeino));
+                para.add(new BasicNameValuePair("OperatorCode", operatorno));
 
 
-
-                String jsonStr = shh.makeServiceCall(url, ServiceHandler.GET, null);
+                String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);
                 if (jsonStr != null) {
                     JSONObject jObj = new JSONObject(jsonStr);
                     JSONArray jsonArray=jObj.getJSONArray("Response");

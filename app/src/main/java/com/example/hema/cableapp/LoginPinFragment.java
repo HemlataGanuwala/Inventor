@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -45,11 +46,12 @@ public class LoginPinFragment extends Fragment {
     View view;
     ProgressDialog progress;
     ServiceHandler shh;
-    String path,pin1,pin2,pin3,pin4,tpin,Message,imeino;
+    String path,pin1,pin2,pin3,pin4,tpin,Message,imeino,operatorno,cmonth,cyear;
     TextView textViewpin1,textViewpin2,textViewpin3,textViewpin4;
     Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0,buttonloginpin;
     ImageButton buttonpasswordshow,buttoncross;
     int Status = 1;
+    int month,year,day;
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
 
     public LoginPinFragment() {
@@ -82,7 +84,10 @@ public class LoginPinFragment extends Fragment {
         buttonpasswordshow = (ImageButton) view.findViewById(R.id.btneye);
         buttoncross = (ImageButton) view.findViewById(R.id.btnclear);
 
+        Submitdata();
         loadIMEI();
+
+        new getOperaterNoData().execute();
 
 //        buttonloginpin.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -223,6 +228,63 @@ public class LoginPinFragment extends Fragment {
         return view;
     }
 
+    public void Submitdata() {
+
+        Calendar c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+
+        if (month == 0) {
+            cmonth = "DEC";
+            cyear = String.valueOf(year);
+        }
+        if (month == 1) {
+            cmonth = "JAN";
+            cyear = String.valueOf(year);
+        }
+        if (month == 2) {
+            cmonth = "FEB";
+            cyear = String.valueOf(year);
+        }
+        if (month == 3) {
+            cmonth = "MAR";
+            cyear = String.valueOf(year);
+        }
+        if (month == 4) {
+            cmonth = "APR";
+            cyear = String.valueOf(year);
+        }
+        if (month == 5) {
+            cmonth = "MAY";
+            cyear = String.valueOf(year);
+        }
+        if (month == 6) {
+            cmonth = "JUN";
+            cyear = String.valueOf(year);
+        }
+        if (month == 7) {
+            cmonth = "JUL";
+            cyear = String.valueOf(year);
+        }
+        if (month == 8) {
+            cmonth = "AUG";
+            cyear = String.valueOf(year);
+        }
+        if (month == 9) {
+            cmonth = "SEP";
+            cyear = String.valueOf(year);
+        }
+        if (month == 10) {
+            cmonth = "OCT";
+            cyear = String.valueOf(year);
+        }
+        if (month == 11) {
+            cmonth = "NOV";
+            cyear = String.valueOf(year);
+        }
+
+    }
+
     public void Filltextdata()
     {
         if (textViewpin1.getText().toString().equals(""))
@@ -303,9 +365,9 @@ public class LoginPinFragment extends Fragment {
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
 
                 if (jsonStr != null) {
-                    JSONObject jObj = new JSONObject(jsonStr);
-                    Status = Integer.parseInt(jObj.getString("Status"));
-                    Message = (jObj.getString("Message"));
+                    JSONObject c1 = new JSONObject(jsonStr);
+                    Status = Integer.parseInt(c1.getString("Status"));
+                    Message = (c1.getString("Message"));
 
                 }
                 else
@@ -330,6 +392,10 @@ public class LoginPinFragment extends Fragment {
             {
                 Toast.makeText(getActivity(), "Login Successfully", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("a1",imeino);
+                intent.putExtra("a2",operatorno);
+                intent.putExtra("a3",cmonth);
+                intent.putExtra("a4",cyear);
                 startActivity(intent);
                 textViewpin1.setText("");
                 textViewpin2.setText("");
@@ -344,6 +410,55 @@ public class LoginPinFragment extends Fragment {
                 textViewpin3.setText("");
                 textViewpin4.setText("");
             }
+        }
+
+
+    }
+
+    class getOperaterNoData extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            shh = new ServiceHandler();
+            String url = path + "Registration/getOperatorno";
+            Log.d("Url: ", "> " + url);
+
+            try{
+                List<NameValuePair> params2 = new ArrayList<>();
+                params2.add(new BasicNameValuePair("IMEINo",imeino));
+
+                String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
+
+                if (jsonStr != null) {
+                    JSONObject c1 = new JSONObject(jsonStr);
+                    JSONArray classArray = c1.getJSONArray("Response");
+                    for (int i = 0; i < classArray.length(); i++) {
+                        JSONObject a1 = classArray.getJSONObject(i);
+                        operatorno = a1.getString("OperatorCode");
+                    }
+
+                }
+                else
+                {
+                    //Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
         }
 
 

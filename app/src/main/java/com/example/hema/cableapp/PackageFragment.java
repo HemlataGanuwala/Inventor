@@ -2,6 +2,7 @@ package com.example.hema.cableapp;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,7 +33,7 @@ public class PackageFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttoninsert;
-    String packagenm,path,rate;
+    String packagenm,path,rate,imeino,operatorno;
 
     int Status = 1;
     ProgressDialog progress;
@@ -57,6 +58,8 @@ public class PackageFragment extends Fragment {
         editTextpackagenm = (EditText)view.findViewById(R.id.etpackagename);
         editTextrate=(EditText)view.findViewById(R.id.etpackagerate);
         buttoninsert = (Button) view.findViewById(R.id.btnpackageinsert);
+
+        Display();
 
         buttoninsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +94,20 @@ public class PackageFragment extends Fragment {
         public void validdata(){
 
             awesomeValidation.addValidation(getActivity(), R.id.etpackagename, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.nameerror);
-            awesomeValidation.addValidation(getActivity(), R.id.etpackagerate, "^[0-9]$", R.string.Dataerror);
+//            awesomeValidation.addValidation(getActivity(), R.id.etpackagerate, "^[0-9]$", R.string.Dataerror);
 
         }
+
+    public void Display()
+    {
+        Intent intent = getActivity().getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null)
+        {
+            imeino = (String)bundle.get("a1");
+            operatorno = (String)bundle.get("a2");
+        }
+    }
 
     public class GetInsertData extends AsyncTask<String, String, String> {
 
@@ -127,8 +141,8 @@ public class PackageFragment extends Fragment {
                 // para.add(new BasicNameValuePair("CustBal", balance));
                 para.add(new BasicNameValuePair("PackageName", packagenm));
                 para.add(new BasicNameValuePair("Rate", rate));
-
-
+                para.add(new BasicNameValuePair("IMEINo", imeino));
+                para.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);
                 if (jsonStr != null) {

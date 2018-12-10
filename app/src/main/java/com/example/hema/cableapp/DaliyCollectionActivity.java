@@ -1,6 +1,7 @@
 package com.example.hema.cableapp;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -31,7 +32,7 @@ public class DaliyCollectionActivity extends AppCompatActivity {
 
     List<DailyCollectionPlanet> mPlanetlist1 = new ArrayList<DailyCollectionPlanet>();
     DailyCollectionAdapter adapter;
-    String path,custnm,mobile,paidamt1,paidamt2;
+    String path,custnm,mobile,paidamt1,paidamt2,imeino,operatorno;
     ServiceHandler shh;
     RecyclerView recyclerView;
     int month,year,day;
@@ -48,7 +49,8 @@ public class DaliyCollectionActivity extends AppCompatActivity {
         path = globalVariable.getconstr();
 
         textViewdate = (TextView)findViewById(R.id.tvdcdate);
-        Submitdata();
+        Display();
+//        Submitdata();
 
         mPlanetlist1.clear();
         new FetchList1().execute();
@@ -97,62 +99,75 @@ public class DaliyCollectionActivity extends AppCompatActivity {
         };
     }
 
-    public void Submitdata() {
-
-        Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-
-        if (month == 0) {
-            cmonth = "DEC";
-            cyear = String.valueOf(year);
+    public void Display()
+    {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null)
+        {
+            imeino = (String)bundle.get("a1");
+            operatorno = (String)bundle.get("a2");
+            cmonth = (String)bundle.get("a3");
+            cyear = (String)bundle.get("a4");
         }
-        if (month == 1) {
-            cmonth = "JAN";
-            cyear = String.valueOf(year);
-        }
-        if (month == 2) {
-            cmonth = "FEB";
-            cyear = String.valueOf(year);
-        }
-        if (month == 3) {
-            cmonth = "MAR";
-            cyear = String.valueOf(year);
-        }
-        if (month == 4) {
-            cmonth = "APR";
-            cyear = String.valueOf(year);
-        }
-        if (month == 5) {
-            cmonth = "MAY";
-            cyear = String.valueOf(year);
-        }
-        if (month == 6) {
-            cmonth = "JUN";
-            cyear = String.valueOf(year);
-        }
-        if (month == 7) {
-            cmonth = "JUL";
-            cyear = String.valueOf(year);
-        }
-        if (month == 8) {
-            cmonth = "AUG";
-            cyear = String.valueOf(year);
-        }
-        if (month == 9) {
-            cmonth = "SEP";
-            cyear = String.valueOf(year);
-        }
-        if (month == 10) {
-            cmonth = "OCT";
-            cyear = String.valueOf(year);
-        }
-        if (month == 11) {
-            cmonth = "NOV";
-            cyear = String.valueOf(year);
-        }
-
     }
+
+//    public void Submitdata() {
+//
+//        Calendar c = Calendar.getInstance();
+//        year = c.get(Calendar.YEAR);
+//        month = c.get(Calendar.MONTH);
+//
+//        if (month == 0) {
+//            cmonth = "DEC";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 1) {
+//            cmonth = "JAN";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 2) {
+//            cmonth = "FEB";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 3) {
+//            cmonth = "MAR";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 4) {
+//            cmonth = "APR";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 5) {
+//            cmonth = "MAY";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 6) {
+//            cmonth = "JUN";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 7) {
+//            cmonth = "JUL";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 8) {
+//            cmonth = "AUG";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 9) {
+//            cmonth = "SEP";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 10) {
+//            cmonth = "OCT";
+//            cyear = String.valueOf(year);
+//        }
+//        if (month == 11) {
+//            cmonth = "NOV";
+//            cyear = String.valueOf(year);
+//        }
+//
+//    }
 
     class FetchList1 extends AsyncTask<String, String, String>
     {
@@ -175,6 +190,8 @@ public class DaliyCollectionActivity extends AppCompatActivity {
                 params2.add(new BasicNameValuePair("PaymentDate2", paydate));
                 params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
+                params2.add(new BasicNameValuePair("IMEINo", imeino));
+                params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 

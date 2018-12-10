@@ -32,7 +32,8 @@
                  android:drawablePadding="10dp"
                  android:ems="10"
                  android:hint="Name"
-                 android:inputType="textPersonName" />
+                 android:inputType="textCapWords|textPersonName"
+                 android:theme="@style/AccentAppTheme" />
 
              <EditText
                  android:id="@+id/txtaddress"
@@ -45,8 +46,9 @@
                  android:drawablePadding="10dp"
                  android:ems="10"
                  android:hint="Address"
-                 android:inputType="textPersonName"
-                 android:paddingTop="10dp" />
+                 android:inputType="textCapSentences|textPersonName"
+                 android:paddingTop="10dp"
+                 android:theme="@style/AccentAppTheme" />
 
              <LinearLayout
                  android:layout_width="match_parent"
@@ -66,7 +68,8 @@
                      android:drawablePadding="10dp"
                      android:ems="10"
                      android:hint="Phone No."
-                     android:inputType="number" />
+                     android:inputType="number"
+                     android:theme="@style/AccentAppTheme"/>
 
                  <EditText
                      android:id="@+id/txtcity"
@@ -78,7 +81,8 @@
                      android:drawablePadding="10dp"
                      android:ems="10"
                      android:hint="City"
-                     android:inputType="textPersonName" />
+                     android:inputType="textCapWords|textPersonName"
+                     android:theme="@style/AccentAppTheme" />
              </LinearLayout>
 
              <LinearLayout
@@ -100,7 +104,8 @@
                      android:drawablePadding="10dp"
                      android:ems="10"
                      android:hint="Email"
-                     android:inputType="textEmailAddress" />
+                     android:inputType="textEmailAddress"
+                     android:theme="@style/AccentAppTheme"/>
              </LinearLayout>
 
              <LinearLayout
@@ -121,7 +126,8 @@
                      android:drawablePadding="10dp"
                      android:ems="10"
                      android:hint="UserId"
-                     android:inputType="textPersonName" />
+                     android:inputType="textPersonName"
+                     android:theme="@style/AccentAppTheme"/>
 
                  <EditText
                      android:id="@+id/txtpassword"
@@ -133,7 +139,8 @@
                      android:drawablePadding="10dp"
                      android:ems="10"
                      android:hint="Password"
-                     android:inputType="textPersonName" />
+                     android:inputType="textPersonName"
+                     android:theme="@style/AccentAppTheme"/>
 
              </LinearLayout>
 
@@ -155,7 +162,8 @@
                      android:drawablePadding="10dp"
                      android:ems="10"
                      android:hint="Pin"
-                     android:inputType="number" />
+                     android:inputType="number"
+                     android:theme="@style/AccentAppTheme"/>
 
                  <EditText
                      android:id="@+id/txtagentno"
@@ -167,7 +175,8 @@
                      android:drawablePadding="10dp"
                      android:ems="10"
                      android:hint="No. of Agent"
-                     android:inputType="number" />
+                     android:inputType="number"
+                     android:theme="@style/AccentAppTheme"/>
 
              </LinearLayout>
 
