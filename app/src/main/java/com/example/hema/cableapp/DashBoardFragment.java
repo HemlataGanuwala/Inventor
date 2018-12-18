@@ -38,7 +38,7 @@ public class DashBoardFragment extends Fragment {
     View view;
     CardView cardViewtodaycollection,cardViewreport,cardViewbillgenerate,cardViewbalancereport,cardViewactivedeactive,cardViewhelp;
     ServiceHandler shh;
-    String path,cmonth,cyear,cdate,dailytotal,reportstotal,balancetotal,activetotal,deactivetotal,imeino,operatorno,dtot;
+    String path,cmonth,cyear,cdate,dailytotal,reportstotal,balancetotal,activetotal,deactivetotal,imeino,operatorno,dtot,pathIp;
     int month,year,Status = 1;
     TextView textViewdailycollection,textViewreport,textViewbalance,textViewactive,textViewdeactive;
     ProgressDialog progress;
@@ -53,8 +53,8 @@ public class DashBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_dash_board, container, false);
-        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        path = globalVariable.getconstr();
+//        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+//        path = globalVariable.getconstr();
 
         cardViewtodaycollection = (CardView)view.findViewById(R.id.cardtoday);
         cardViewreport = (CardView)view.findViewById(R.id.cardreport);
@@ -94,7 +94,7 @@ public class DashBoardFragment extends Fragment {
         cardViewreport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),DaliyCollectionActivity.class);
+                Intent intent = new Intent(getActivity(),ReportsActivity.class);
                 startActivity(intent);
             }
         });
@@ -109,23 +109,25 @@ public class DashBoardFragment extends Fragment {
         cardViewbalancereport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),DaliyCollectionActivity.class);
+                Intent intent = new Intent(getActivity(),BalanceReportActivity.class);
+                intent.putExtra("a1",imeino);
+                intent.putExtra("a2",operatorno);
+                intent.putExtra("a3",cmonth);
+                intent.putExtra("a4",cyear);
+                intent.putExtra("a5",pathIp);
                 startActivity(intent);
             }
         });
 
-        cardViewtodaycollection.setOnClickListener(new View.OnClickListener() {
+        cardViewactivedeactive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),DaliyCollectionActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        cardViewtodaycollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),DaliyCollectionActivity.class);
+                Intent intent = new Intent(getActivity(),ActiveDeactiveActivity.class);
+                intent.putExtra("a1",imeino);
+                intent.putExtra("a2",operatorno);
+                intent.putExtra("a3",cmonth);
+                intent.putExtra("a4",cyear);
+                intent.putExtra("a5",pathIp);
                 startActivity(intent);
             }
         });
@@ -199,6 +201,7 @@ public class DashBoardFragment extends Fragment {
             operatorno = (String)bundle.get("a2");
             cmonth = (String)bundle.get("a3");
             cyear = (String)bundle.get("a4");
+            pathIp = (String)bundle.get("a5");
         }
     }
 
@@ -219,7 +222,7 @@ public class DashBoardFragment extends Fragment {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  path + "Report/DailyCollectionSumReport";
+            String url =  pathIp + "Report/DailyCollectionSumReport";
 
             Log.d("Url: ", "> " + url);
 
@@ -282,7 +285,7 @@ public class DashBoardFragment extends Fragment {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  path + "Report/MonthWiseSumReport";
+            String url =  pathIp + "Report/MonthWiseSumReport";
 
             Log.d("Url: ", "> " + url);
 
@@ -342,7 +345,7 @@ public class DashBoardFragment extends Fragment {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  path + "Report/BalanceSumReport";
+            String url =  pathIp + "Report/BalanceSumReport";
 
             Log.d("Url: ", "> " + url);
 
@@ -403,7 +406,7 @@ public class DashBoardFragment extends Fragment {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  path + "Report/ActiveCustomerSumReport";
+            String url =  pathIp + "Report/ActiveCustomerSumReport";
 
             Log.d("Url: ", "> " + url);
 
@@ -413,6 +416,7 @@ public class DashBoardFragment extends Fragment {
                 params2.add(new BasicNameValuePair("Byear", cyear));
                 params2.add(new BasicNameValuePair("IMEINo", imeino));
                 params2.add(new BasicNameValuePair("OperatorCode", operatorno));
+                params2.add(new BasicNameValuePair("Status", "Active"));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 
@@ -463,7 +467,7 @@ public class DashBoardFragment extends Fragment {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  path + "Report/DeactiveCustomerSumReport";
+            String url =  pathIp + "Report/DeactiveCustomerSumReport";
 
             Log.d("Url: ", "> " + url);
 
@@ -473,6 +477,7 @@ public class DashBoardFragment extends Fragment {
                 params2.add(new BasicNameValuePair("Byear", cyear));
                 params2.add(new BasicNameValuePair("IMEINo", imeino));
                 params2.add(new BasicNameValuePair("OperatorCode", operatorno));
+                params2.add(new BasicNameValuePair("Status", "Deactive"));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, params2);
 
@@ -517,7 +522,7 @@ public class DashBoardFragment extends Fragment {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  path + "Registration/BillGeneration";
+            String url =  pathIp + "Registration/BillGeneration";
 
             Log.d("Url: ", "> " + url);
 

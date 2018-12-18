@@ -53,7 +53,7 @@ public class RegFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttonreg,buttondate;
-    String custname;
+    String custname,pathIp;
     String address;
     String mobno;
     String area;
@@ -78,6 +78,7 @@ public class RegFragment extends Fragment {
     String getpack,getrate;
     String packrate;
     ArrayAdapter<String> spinnerpackageAdapter;
+    com.suke.widget.SwitchButton switchButton;
 
     //defining AwesomeValidation object
     private AwesomeValidation awesomeValidation;
@@ -94,11 +95,8 @@ public class RegFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_reg, container, false);
 
-
-
-
-        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        path = globalVariable.getconstr();
+//        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+//        path = globalVariable.getconstr();
 
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
@@ -123,20 +121,20 @@ public class RegFragment extends Fragment {
         new GetPackageData().execute();
         new GetAgentData().execute();
 
-        com.suke.widget.SwitchButton switchButton = (com.suke.widget.SwitchButton)
-                view.findViewById(R.id.switch_button);
+        switchButton = (com.suke.widget.SwitchButton)view.findViewById(R.id.switch_button);
 
-        switchButton.setChecked(true);
-        switchButton.isChecked();
-        switchButton.toggle();     //switch state
-        switchButton.toggle(false);//switch without animation
-        switchButton.setShadowEffect(true);//disable shadow effect
-        switchButton.setEnabled(false);//disable button
-        switchButton.setEnableEffect(false);//disable the switch animation
+//        switchButton.setChecked(true);
+//        switchButton.isChecked();
+//        switchButton.toggle();     //switch state
+//        switchButton.toggle(false);//switch without animation
+//        switchButton.setShadowEffect(true);//disable shadow effect
+//        switchButton.setEnabled(false);//disable button
+//        switchButton.setEnableEffect(false);//disable the switch animation
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (textViewactiveDeactive.equals(""))
+
+                if (switchButton.isChecked())
                 {
                     textViewactiveDeactive.setText("Active");
                 }
@@ -144,8 +142,6 @@ public class RegFragment extends Fragment {
                 {
                     textViewactiveDeactive.setText("Deactive");
                 }
-
-
             }
         });
 
@@ -253,6 +249,7 @@ public class RegFragment extends Fragment {
             {
                 imeino = (String)bundle.get("a1");
                 operatorno = (String)bundle.get("a2");
+                pathIp = (String)bundle.get("a5");
             }
         }
 
@@ -277,7 +274,7 @@ public class RegFragment extends Fragment {
 
             shh = new ServiceHandler();
 
-            String url = path + "Registration/CustomerRegistration";
+            String url = pathIp + "Registration/CustomerRegistration";
 
             Log.d("Url: ", "> " + url);
 
@@ -295,6 +292,7 @@ public class RegFragment extends Fragment {
                 para.add(new BasicNameValuePair("SetupBox_Details", setupdetails));
                 para.add(new BasicNameValuePair("Package", packagenm));
                 para.add(new BasicNameValuePair("PackageRate", monthlycharge));
+                para.add(new BasicNameValuePair("OldBal", "0"));
                 para.add(new BasicNameValuePair("RegistrationDate", regdate));
                 para.add(new BasicNameValuePair("AgentName", agentnm));
                 para.add(new BasicNameValuePair("Status", actdact));
@@ -367,7 +365,7 @@ public class RegFragment extends Fragment {
 
             shh = new ServiceHandler();
 
-            String url = path + "Registration/PackageData";
+            String url = pathIp + "Registration/PackageData";
 
             Log.d("Url: ", "> " + url);
 
@@ -442,7 +440,7 @@ public class RegFragment extends Fragment {
 
             shh = new ServiceHandler();
 
-            String url = path + "Registration/AgentData";
+            String url = pathIp + "Registration/AgentData";
 
             Log.d("Url: ", "> " + url);
 

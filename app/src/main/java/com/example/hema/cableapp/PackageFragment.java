@@ -33,7 +33,7 @@ public class PackageFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttoninsert;
-    String packagenm,path,rate,imeino,operatorno;
+    String packagenm,path,rate,imeino,operatorno,pathIp;
 
     int Status = 1;
     ProgressDialog progress;
@@ -50,8 +50,8 @@ public class PackageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_package, container, false);
-        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        path = globalVariable.getconstr();
+//        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+//        path = globalVariable.getconstr();
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
 
@@ -106,6 +106,7 @@ public class PackageFragment extends Fragment {
         {
             imeino = (String)bundle.get("a1");
             operatorno = (String)bundle.get("a2");
+            pathIp = (String)bundle.get("a5");
         }
     }
 
@@ -130,7 +131,7 @@ public class PackageFragment extends Fragment {
 
             shh = new ServiceHandler();
 
-            String url = path + "Registration/PackageInsert";
+            String url = pathIp + "Registration/PackageInsert";
 
             Log.d("Url: ", "> " + url);
 

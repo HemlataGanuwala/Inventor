@@ -31,7 +31,7 @@ public class BalanceReportAdapter extends RecyclerView.Adapter<BalanceReportAdap
     @Override
     public ListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.daily_collection_item,parent,false);
+        View view = inflater.inflate(R.layout.balance_report_item,parent,false);
         return new ListHolder(view);
     }
 
@@ -49,7 +49,7 @@ public class BalanceReportAdapter extends RecyclerView.Adapter<BalanceReportAdap
 
     public class ListHolder extends RecyclerView.ViewHolder {
         TextView textViewbalcust,textViewbalmobile,textViewbalpaid;
-        ImageButton imageButtoncall;
+
         public ListHolder(View itemView) {
             super(itemView);
             textViewbalcust = (TextView) itemView.findViewById(R.id.tvblancecustnm);
@@ -57,17 +57,7 @@ public class BalanceReportAdapter extends RecyclerView.Adapter<BalanceReportAdap
             textViewbalpaid = (TextView) itemView.findViewById(R.id.tvbalancebalamt);
 
 
-            imageButtoncall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(mlistner != null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            mlistner.onItemClick(position);
-                        }
-                    }
-                }
-            });
+
         }
     }
 }

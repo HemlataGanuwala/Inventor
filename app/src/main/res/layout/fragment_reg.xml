@@ -242,7 +242,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_weight=".30"
-                            android:background="@drawable/textbg" />
+                            android:background="@drawable/textbg"
+                            android:gravity="center"
+                            android:textSize="18sp" />
 
 
                         <com.suke.widget.SwitchButton

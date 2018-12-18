@@ -40,7 +40,7 @@ public class LoginPasswordFragment extends Fragment {
     View view;
     ProgressDialog progress;
     ServiceHandler shh;
-    String path,username,password,user1,pass1,regstatus,regstatus1,imeino,Message,operatorno,cmonth,cyear;
+    String path,username,password,user1,pass1,regstatus,regstatus1,imeino,Message,operatorno,cmonth,cyear,pathIp;
     EditText editTextuser,editTextpassword;
     int month,year,day;
     Button buttonlogin;
@@ -69,6 +69,8 @@ public class LoginPasswordFragment extends Fragment {
         Submitdata();
 
         loadIMEI();
+
+        new getOperaterNoData().execute();
 
         buttonlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,20 +151,6 @@ public class LoginPasswordFragment extends Fragment {
 //                alertAlert(getString(R.string.permissions_not_granted_read_phone_state));
             }
         }
-    }
-
-    private void alertAlert(String msg) {
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Permission Request")
-                .setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do somthing here
-                    }
-                })
-//                .setIcon(R.drawable.onlinlinew_warning_sign)
-                .show();
     }
 
 
@@ -265,6 +253,7 @@ public class LoginPasswordFragment extends Fragment {
                 params2.add(new BasicNameValuePair("UserId",username));
                 params2.add(new BasicNameValuePair("Password",password));
                 params2.add(new BasicNameValuePair("IMEINo",imeino));
+                params2.add(new BasicNameValuePair("SkyStatus","1"));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
 
@@ -296,10 +285,11 @@ public class LoginPasswordFragment extends Fragment {
             {
                     Toast.makeText(getActivity(), "Login Successfully", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(),MainActivity.class);
-                    intent.putExtra("a1",imeino);
-                    intent.putExtra("a2",operatorno);
-                    intent.putExtra("a3",cmonth);
-                    intent.putExtra("a4",cyear);
+                     intent.putExtra("a1",imeino);
+                     intent.putExtra("a2",operatorno);
+                     intent.putExtra("a3",cmonth);
+                     intent.putExtra("a4",cyear);
+                     intent.putExtra("a5",pathIp);
                     startActivity(intent);
                     //finish();
 
@@ -311,6 +301,56 @@ public class LoginPasswordFragment extends Fragment {
 
 
         }
+    }
+
+    class getOperaterNoData extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            shh = new ServiceHandler();
+            String url = path + "RegistrationApi/getOperatorno";
+            Log.d("Url: ", "> " + url);
+
+            try{
+                List<NameValuePair> params2 = new ArrayList<>();
+                params2.add(new BasicNameValuePair("IMEINo",imeino));
+
+                String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
+
+                if (jsonStr != null) {
+                    JSONObject c1 = new JSONObject(jsonStr);
+                    JSONArray classArray = c1.getJSONArray("Response");
+                    for (int i = 0; i < classArray.length(); i++) {
+                        JSONObject a1 = classArray.getJSONObject(i);
+                        operatorno = a1.getString("OperatorCode");
+                        pathIp = a1.getString("ApiLink");
+                    }
+
+                }
+                else
+                {
+                    //Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+        }
+
+
     }
 
 

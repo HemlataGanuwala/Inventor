@@ -46,7 +46,7 @@ public class LoginPinFragment extends Fragment {
     View view;
     ProgressDialog progress;
     ServiceHandler shh;
-    String path,pin1,pin2,pin3,pin4,tpin,Message,imeino,operatorno,cmonth,cyear;
+    String path,pin1,pin2,pin3,pin4,tpin,Message,imeino,operatorno,cmonth,cyear,pathIp;
     TextView textViewpin1,textViewpin2,textViewpin3,textViewpin4;
     Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0,buttonloginpin;
     ImageButton buttonpasswordshow,buttoncross;
@@ -337,6 +337,8 @@ public class LoginPinFragment extends Fragment {
 
     }
 
+
+
     class getloginData extends AsyncTask<Void, Void, String>
     {
         @Override
@@ -353,14 +355,15 @@ public class LoginPinFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             shh = new ServiceHandler();
-            String url = path + "Registration/AdminLogin";
+            String url = path + "RegistrationApi/AdminLogin";
             Log.d("Url: ", "> " + url);
 
             try{
                 List<NameValuePair> params2 = new ArrayList<>();
                 params2.add(new BasicNameValuePair("Pin",pin1));
-                params2.add(new BasicNameValuePair("Password",null));
+                //params2.add(new BasicNameValuePair("Password",null));
                 params2.add(new BasicNameValuePair("IMEINo",imeino));
+                params2.add(new BasicNameValuePair("SkyStatus","1"));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST , params2);
 
@@ -396,6 +399,7 @@ public class LoginPinFragment extends Fragment {
                 intent.putExtra("a2",operatorno);
                 intent.putExtra("a3",cmonth);
                 intent.putExtra("a4",cyear);
+                intent.putExtra("a5",pathIp);
                 startActivity(intent);
                 textViewpin1.setText("");
                 textViewpin2.setText("");
@@ -425,7 +429,7 @@ public class LoginPinFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             shh = new ServiceHandler();
-            String url = path + "Registration/getOperatorno";
+            String url = path + "RegistrationApi/getOperatorno";
             Log.d("Url: ", "> " + url);
 
             try{
@@ -440,6 +444,7 @@ public class LoginPinFragment extends Fragment {
                     for (int i = 0; i < classArray.length(); i++) {
                         JSONObject a1 = classArray.getJSONObject(i);
                         operatorno = a1.getString("OperatorCode");
+                        pathIp = a1.getString("ApiLink");
                     }
 
                 }

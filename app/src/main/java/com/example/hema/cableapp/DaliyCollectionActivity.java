@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,30 +33,40 @@ public class DaliyCollectionActivity extends AppCompatActivity {
 
     List<DailyCollectionPlanet> mPlanetlist1 = new ArrayList<DailyCollectionPlanet>();
     DailyCollectionAdapter adapter;
-    String path,custnm,mobile,paidamt1,paidamt2,imeino,operatorno;
+    String path,custnm,mobile,paidamt1,paidamt2,imeino,operatorno,pathIp;
     ServiceHandler shh;
     RecyclerView recyclerView;
     int month,year,day;
     String CDay,CMonth,cmonth,cyear,paydate;
     TextView textViewdate;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+    Button buttonsearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daliy_collection);
 
-        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        path = globalVariable.getconstr();
+//        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+//        path = globalVariable.getconstr();
 
         textViewdate = (TextView)findViewById(R.id.tvdcdate);
+        buttonsearch = (Button)findViewById(R.id.btnsearch);
+
         Display();
 //        Submitdata();
 
         mPlanetlist1.clear();
-        new FetchList1().execute();
+
         recyclerView = (RecyclerView) findViewById(R.id.rcdaliydate);
         recyclerView.setLayoutManager(new LinearLayoutManager(DaliyCollectionActivity.this));
+
+        buttonsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FetchList1().execute();
+            }
+        });
 
         textViewdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +120,7 @@ public class DaliyCollectionActivity extends AppCompatActivity {
             operatorno = (String)bundle.get("a2");
             cmonth = (String)bundle.get("a3");
             cyear = (String)bundle.get("a4");
+            pathIp = (String)bundle.get("a5");
         }
     }
 

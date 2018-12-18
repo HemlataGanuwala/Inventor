@@ -44,7 +44,7 @@
                    <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
-                       android:layout_weight="0.30"
+                       android:layout_weight=".50"
                        android:background="@color/colorPrimary"
                        android:orientation="vertical">
 
@@ -85,16 +85,27 @@
                        android:orientation="vertical">
 
                        <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
+                           android:layout_marginRight="5dp"
+                           android:layout_marginBottom="3dp"
+                           android:gravity="center"
+                           android:text="Today Collection"
+                           android:textColor="@android:color/white"
+                           android:textSize="16sp"
+                           android:textStyle="bold" />
+
+                       <TextView
                            android:id="@+id/tvdashdailycoll"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_marginLeft="5dp"
                            android:layout_marginRight="5dp"
-                           android:layout_marginBottom="10dp"
+                           android:layout_marginBottom="5dp"
                            android:gravity="center"
-                           android:text="Today Collection"
                            android:textColor="@android:color/white"
-                           android:textSize="18sp"
+                           android:textSize="16sp"
                            android:textStyle="bold" />
                    </LinearLayout>
 
@@ -123,7 +134,7 @@
                    <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
-                       android:layout_weight="0.30"
+                       android:layout_weight="0.50"
                        android:background="@color/colorPrimary"
                        android:orientation="vertical">
 
@@ -163,16 +174,27 @@
                        android:orientation="vertical">
 
                        <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
+                           android:layout_marginRight="5dp"
+                           android:layout_marginBottom="3dp"
+                           android:gravity="center"
+                           android:text="Reports"
+                           android:textColor="@android:color/white"
+                           android:textSize="16sp"
+                           android:textStyle="bold" />
+
+                       <TextView
                            android:id="@+id/tvdashreport"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_marginLeft="5dp"
                            android:layout_marginRight="5dp"
-                           android:layout_marginBottom="10dp"
+                           android:layout_marginBottom="5dp"
                            android:gravity="center"
-                           android:text="Reports"
                            android:textColor="@android:color/white"
-                           android:textSize="18sp"
+                           android:textSize="16sp"
                            android:textStyle="bold" />
                    </LinearLayout>
 
@@ -237,13 +259,14 @@
                        android:background="@color/colorPrimary"
                        android:orientation="vertical">
 
+
                        <TextView
                            android:id="@+id/textView8"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_marginLeft="5dp"
                            android:layout_marginRight="5dp"
-                           android:layout_marginBottom="10dp"
+                           android:layout_marginBottom="5dp"
                            android:gravity="center"
                            android:text="Bill Generate"
                            android:textColor="@color/white"
@@ -274,7 +297,7 @@
                    <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
-                       android:layout_weight="0.30"
+                       android:layout_weight="0.50"
                        android:background="@color/colorPrimary"
                        android:orientation="vertical">
 
@@ -313,16 +336,27 @@
                        android:orientation="vertical">
 
                        <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
+                           android:layout_marginRight="5dp"
+                           android:layout_marginBottom="3dp"
+                           android:gravity="center"
+                           android:text="Balance Report"
+                           android:textColor="@color/white"
+                           android:textSize="16sp"
+                           android:textStyle="bold" />
+
+                       <TextView
                            android:id="@+id/tvdashbalance"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_marginLeft="5dp"
                            android:layout_marginRight="5dp"
-                           android:layout_marginBottom="10dp"
+                           android:layout_marginBottom="5dp"
                            android:gravity="center"
-                           android:text="Balance Report"
                            android:textColor="@color/white"
-                           android:textSize="18sp"
+                           android:textSize="16sp"
                            android:textStyle="bold" />
                    </LinearLayout>
 
@@ -349,7 +383,7 @@
                    <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
-                       android:layout_weight="0.30"
+                       android:layout_weight="0.45"
                        android:background="@color/colorPrimary"
                        android:orientation="vertical">
 
@@ -388,6 +422,40 @@
                        android:orientation="horizontal">
 
                        <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
+                           android:layout_marginRight="5dp"
+                           android:layout_marginBottom="3dp"
+                           android:gravity="center"
+                           android:text="Active"
+                           android:textColor="@color/white"
+                           android:textSize="16sp"
+                           android:textStyle="bold"
+                           android:layout_weight="1"/>
+
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
+                           android:layout_marginRight="5dp"
+                           android:layout_marginBottom="3dp"
+                           android:gravity="center"
+                           android:text="Deactive"
+                           android:textColor="@color/white"
+                           android:textSize="16sp"
+                           android:textStyle="bold"
+                           android:layout_weight="1"/>
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:layout_weight="1"
+                       android:background="@color/colorPrimary"
+                       android:orientation="horizontal">
+
+                       <TextView
                            android:id="@+id/tvdashactive"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
@@ -395,9 +463,8 @@
                            android:layout_marginRight="5dp"
                            android:layout_marginBottom="10dp"
                            android:gravity="center"
-                           android:text="Active"
                            android:textColor="@color/white"
-                           android:textSize="18sp"
+                           android:textSize="16sp"
                            android:textStyle="bold"
                            android:layout_weight="1"/>
 
@@ -409,9 +476,8 @@
                            android:layout_marginRight="5dp"
                            android:layout_marginBottom="10dp"
                            android:gravity="center"
-                           android:text="Deactive"
                            android:textColor="@color/white"
-                           android:textSize="18sp"
+                           android:textSize="16sp"
                            android:textStyle="bold"
                            android:layout_weight="1"/>
                    </LinearLayout>

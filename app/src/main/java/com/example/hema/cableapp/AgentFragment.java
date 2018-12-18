@@ -33,7 +33,7 @@ public class AgentFragment extends Fragment {
     View view;
     ServiceHandler shh;
     Button buttonregistration;
-    String agentnm,path,password,imeino,operatorno;
+    String agentnm,path,password,imeino,operatorno,pathIp;
 
     int Status = 1;
     ProgressDialog progress;
@@ -49,9 +49,11 @@ public class AgentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_agent, container, false);
-        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        path = globalVariable.getconstr();
+//        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+//        path = globalVariable.getconstr();
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
+        Display();
 
         editTextagentnm = (EditText)view.findViewById(R.id.etagentname);
         editTextpassword=(EditText)view.findViewById(R.id.etagentpassword);
@@ -81,6 +83,7 @@ public class AgentFragment extends Fragment {
         {
             imeino = (String)bundle.get("a1");
             operatorno = (String)bundle.get("a2");
+            pathIp = (String)bundle.get("a5");
         }
     }
 
@@ -120,7 +123,7 @@ public class AgentFragment extends Fragment {
 
             shh = new ServiceHandler();
 
-            String url = path + "Registration/AgentRegistration";
+            String url = pathIp + "Registration/AgentRegistration";
 
             Log.d("Url: ", "> " + url);
 

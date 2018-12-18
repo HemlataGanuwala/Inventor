@@ -253,7 +253,7 @@ public class RegistrationFragment extends Fragment {
 
             shh = new ServiceHandler();
 
-            String url = path + "Registration/AdminRegistration";
+            String url = path + "RegistrationApi/AdminRegistration";
 
             Log.d("Url: ", "> " + url);
 
