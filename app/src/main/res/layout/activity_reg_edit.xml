@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cablebg1"
     android:orientation="vertical"
-    tools:context=".RegFragment">
-
+    tools:context=".RegEditActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,17 +26,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".15"
                 android:gravity="center"
-                android:text="REGISTRATION"
+                android:text="EDIT / DELETE"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
                 app:fontFamily="@font/aclonica" />
 
-            <ImageView
-                android:id="@+id/imgreglist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/icon_list" />
 
         </LinearLayout>
 
@@ -59,7 +51,7 @@
                     android:orientation="vertical">
 
                     <EditText
-                        android:id="@+id/etcustname"
+                        android:id="@+id/eteditcustname"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginLeft="5dp"
@@ -73,7 +65,7 @@
                         android:theme="@style/AccentAppTheme" />
 
                     <EditText
-                        android:id="@+id/etaddress"
+                        android:id="@+id/eteditaddress"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginLeft="5dp"
@@ -93,7 +85,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/etmobile"
+                            android:id="@+id/eteditmobile"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
@@ -109,7 +101,7 @@
                             android:theme="@style/AccentAppTheme"/>
 
                         <EditText
-                            android:id="@+id/etarea"
+                            android:id="@+id/eteditarea"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
@@ -131,7 +123,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/etnobox"
+                            android:id="@+id/eteditnobox"
                             android:layout_width="wrap_content"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
@@ -147,7 +139,7 @@
                             android:theme="@style/AccentAppTheme"/>
 
                         <EditText
-                            android:id="@+id/etsetboxdetail"
+                            android:id="@+id/eteditsetboxdetail"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
                             android:layout_marginLeft="5dp"
@@ -169,8 +161,8 @@
                         android:layout_marginTop="7dp"
                         android:orientation="horizontal">
 
-                        <Spinner
-                            android:id="@+id/spinpackage"
+                        <EditText
+                            android:id="@+id/spineditpackage"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
@@ -181,7 +173,7 @@
                             android:theme="@style/AccentAppTheme"/>
 
                         <EditText
-                            android:id="@+id/etrate"
+                            android:id="@+id/eteditrate"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_marginLeft="5dp"
@@ -195,8 +187,8 @@
                             android:theme="@style/AccentAppTheme"/>
                     </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/spinagentname"
+                    <EditText
+                        android:id="@+id/spineditagentname"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginLeft="50dp"
@@ -206,38 +198,6 @@
                         android:paddingLeft="10dp"
                         android:theme="@style/AccentAppTheme"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txtdate"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight=".50"
-                            android:background="@drawable/textbg"
-                            android:gravity="center"
-                            android:hint="Date"
-                            android:paddingLeft="10dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:theme="@style/AccentAppTheme"/>
-
-                        <Button
-                            android:id="@+id/btnsetdt"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/buttonbg"
-                            android:text="Set Date"
-                            android:textColor="@android:color/white" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -247,7 +207,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tvregad"
+                            android:id="@+id/tveditregad"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_weight=".30"
@@ -257,7 +217,7 @@
 
 
                         <com.suke.widget.SwitchButton
-                            android:id="@+id/switch_button"
+                            android:id="@+id/switch_buttonedit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"/>
@@ -265,22 +225,35 @@
                     </LinearLayout>
 
 
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
 
                         <Button
-                            android:id="@+id/btncustregistration"
+                            android:id="@+id/btnedit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:layout_marginLeft="40dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="40dp"
                             android:background="@drawable/buttonbg"
-                            android:text="Register"
+                            android:text="Edit"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/btndelete"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="40dp"
+                            android:background="@drawable/buttonbg"
+                            android:text="DELETE"
                             android:textColor="@android:color/white"
                             android:textSize="18sp" />
 
@@ -292,4 +265,5 @@
 
 
     </LinearLayout>
+
 </LinearLayout>

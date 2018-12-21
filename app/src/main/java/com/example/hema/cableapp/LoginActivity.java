@@ -19,8 +19,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        globalVariable.setconstr("http://192.168.0.107:8054/api/");
-//        globalVariable.setconstr("http://master.skyvisioncables.com/api/");
+//        globalVariable.setconstr("http://192.168.0.100:8012/api/");
+//        globalVariable.setconstr("http://192.168.0.108:8054/api/");
+        globalVariable.setconstr("http://master.skyvisioncables.com/api/");
 
         tabLayout = (TabLayout)findViewById(R.id.tablayout);
         viewPager = (ViewPager)findViewById(R.id.viewpages);

@@ -1,22 +1,20 @@
 package com.example.hema.cableapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hema.cableapp.Adapter.DailyCollectionAdapter;
-import com.example.hema.cableapp.Adapter.ReportAdapter;
+import com.example.hema.cableapp.Adapter.RegListAdapter;
 import com.example.hema.cableapp.Model.DailyCollectionPlanet;
-import com.example.hema.cableapp.Model.ReportPlanet;
+import com.example.hema.cableapp.Model.RegListPlanet;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -27,36 +25,29 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportsActivity extends AppCompatActivity {
+public class RegListActivity extends AppCompatActivity implements RegListAdapter.OnItemClickListner,SwipeRefreshLayout.OnRefreshListener{
 
-    List<ReportPlanet> mPlanetlist1 = new ArrayList<ReportPlanet>();
-    ReportAdapter adapter;
-    String path,custnm,mobile,paidamt1,paidamt2,imeino,operatorno,cmonth,cyear,pathIp,month;
-    ServiceHandler shh;
     RecyclerView recyclerView;
-    Button buttonsearch;
-    Spinner textViewmonth;
-
+    RegListAdapter adapter;
+    List<RegListPlanet>mPlanetlist = new ArrayList<RegListPlanet>();
+    ServiceHandler shh;
+    String pathIp,custnm,mobile,area,setupbox,statusad,imeino,operatorno,custid;
+    SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reports);
+        setContentView(R.layout.activity_reg_list);
+
+
+        refreshLayout = (SwipeRefreshLayout)findViewById(R.id.regswipelist);
+        refreshLayout.setOnRefreshListener(this);
+        recyclerView = (RecyclerView) findViewById(R.id.rcreglist);
+        recyclerView.setLayoutManager(new LinearLayoutManager(RegListActivity.this));
 
         Display();
-        buttonsearch = (Button)findViewById(R.id.btnsearchmonth);
-        textViewmonth = (Spinner)findViewById(R.id.tvselectmonth);
-        recyclerView = (RecyclerView) findViewById(R.id.rcreportmonth);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ReportsActivity.this));
+        new FetchList1().execute();
 
-        buttonsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mPlanetlist1.clear();
-                new FetchList1().execute();
-            }
-        });
     }
 
     public void Display()
@@ -67,13 +58,28 @@ public class ReportsActivity extends AppCompatActivity {
         {
             imeino = (String)bundle.get("a1");
             operatorno = (String)bundle.get("a2");
-            //cmonth = (String)bundle.get("a3");
-            cyear = (String)bundle.get("a4");
-            pathIp = (String)bundle.get("a5");
+            pathIp = (String)bundle.get("a3");
         }
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(RegListActivity.this,RegEditActivity.class);
+        RegListPlanet planet = mPlanetlist.get(position);
+        intent.putExtra("a1",planet.getCustomerId());
+        intent.putExtra("a2",imeino);
+        intent.putExtra("a3",operatorno);
+        intent.putExtra("a4",pathIp);
+        startActivity(intent);
+    }
 
+    @Override
+    public void onRefresh() {
+        mPlanetlist.clear();
+        refreshLayout.setRefreshing(false);
+        new FetchList1().execute();
+
+    }
 
     class FetchList1 extends AsyncTask<String, String, String>
     {
@@ -86,14 +92,12 @@ public class ReportsActivity extends AppCompatActivity {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  pathIp + "Report/MonthWiseReport";
+            String url =  pathIp + "Registration/CustomerRegistrationData";
 
             Log.d("Url: ", "> " + url);
 
             try {
                 List<NameValuePair> params2 = new ArrayList<>();
-                params2.add(new BasicNameValuePair("Bmonth", month));
-                params2.add(new BasicNameValuePair("Byear", cyear));
                 params2.add(new BasicNameValuePair("IMEINo", imeino));
                 params2.add(new BasicNameValuePair("OperatorCode", operatorno));
 
@@ -105,19 +109,22 @@ public class ReportsActivity extends AppCompatActivity {
                     JSONArray classArray = c1.getJSONArray("Response");
                     for (int i = 0; i < classArray.length(); i++) {
                         JSONObject a1 = classArray.getJSONObject(i);
+                        custid = a1.getString("CustId");
                         custnm = a1.getString("CustName");
                         mobile = a1.getString("MobileNo");
-                        paidamt1 = a1.getString("PaymentAmount1");
-                        paidamt2 = a1.getString("PaymentAmount2");
+                        area = a1.getString("Area");
+                        setupbox = a1.getString("SetupBox_Details");
+                        statusad = a1.getString("Status");
 
 
-                        ReportPlanet planet1 = new ReportPlanet(custnm,mobile,paidamt1,paidamt2);
-                        mPlanetlist1.add(planet1);
+                        RegListPlanet planet1 = new RegListPlanet(custid,custnm,mobile,area,setupbox,statusad);
+                        mPlanetlist.add(planet1);
                     }
-
+                    try  { Thread.sleep(500);}
+                    catch (InterruptedException e){e.printStackTrace();}
 
                 } else {
-                    Toast.makeText(ReportsActivity.this, "Data Not Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegListActivity.this, "Data Not Available", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -134,11 +141,11 @@ public class ReportsActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    adapter = new ReportAdapter(mPlanetlist1);
+                    adapter = new RegListAdapter(mPlanetlist);
                     recyclerView.setAdapter(adapter);
                 }
             });
-            //adapter.setOnItemClickListner(g);
+            adapter.setOnItemClickListner(RegListActivity.this);
         }
     }
 }

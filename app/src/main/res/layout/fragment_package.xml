@@ -53,7 +53,8 @@
                 android:hint="Package Name"
                 android:inputType="textCapWords|textPersonName"
                 android:paddingLeft="5dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:theme="@style/AccentAppTheme"/>
 
             <EditText
                 android:id="@+id/etpackagerate"
@@ -69,7 +70,8 @@
                 android:hint="Rate"
                 android:inputType="number"
                 android:paddingLeft="5dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:theme="@style/AccentAppTheme"/>
 
             <Button
                 android:id="@+id/btnpackageinsert"

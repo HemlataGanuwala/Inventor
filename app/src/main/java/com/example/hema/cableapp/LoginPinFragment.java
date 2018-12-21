@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -344,12 +345,20 @@ public class LoginPinFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress=new ProgressDialog(getActivity());
+//            progress.setMessage("Loading...");
+//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress.setIndeterminate(true);
+//            progress.setProgress(0);
+//            progress.show();
+
+            progress = new ProgressDialog(getActivity());
+            progress.getWindow().setBackgroundDrawable(new
+                    ColorDrawable(android.graphics.Color.TRANSPARENT));
             progress.setIndeterminate(true);
-            progress.setProgress(0);
+            progress.setCancelable(false);
             progress.show();
+            progress.setContentView(R.layout.progress_dialog);
         }
 
         @Override

@@ -3,9 +3,11 @@ package com.example.hema.cableapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -33,7 +35,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashBoardFragment extends Fragment {
+public class DashBoardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     View view;
     CardView cardViewtodaycollection,cardViewreport,cardViewbillgenerate,cardViewbalancereport,cardViewactivedeactive,cardViewhelp;
@@ -42,6 +44,7 @@ public class DashBoardFragment extends Fragment {
     int month,year,Status = 1;
     TextView textViewdailycollection,textViewreport,textViewbalance,textViewactive,textViewdeactive;
     ProgressDialog progress;
+    SwipeRefreshLayout refreshLayout;
 
     public DashBoardFragment() {
         // Required empty public constructor
@@ -55,6 +58,9 @@ public class DashBoardFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_dash_board, container, false);
 //        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
 //        path = globalVariable.getconstr();
+
+        refreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
+        refreshLayout.setOnRefreshListener(this);
 
         cardViewtodaycollection = (CardView)view.findViewById(R.id.cardtoday);
         cardViewreport = (CardView)view.findViewById(R.id.cardreport);
@@ -73,7 +79,7 @@ public class DashBoardFragment extends Fragment {
         Display();
 
         Date d = new Date();
-        CharSequence g = DateFormat.format("dd/MM/yyyy", d.getTime());
+        CharSequence g = DateFormat.format("dd-MM-yyyy", d.getTime());
         cdate = g.toString();
 
         new FetchList1().execute();
@@ -87,6 +93,11 @@ public class DashBoardFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getActivity(),DaliyCollectionActivity.class);
+                intent.putExtra("a1",imeino);
+                intent.putExtra("a2",operatorno);
+                intent.putExtra("a3",cmonth);
+                intent.putExtra("a4",cyear);
+                intent.putExtra("a5",pathIp);
                 startActivity(intent);
             }
         });
@@ -95,6 +106,11 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),ReportsActivity.class);
+                intent.putExtra("a1",imeino);
+                intent.putExtra("a2",operatorno);
+                intent.putExtra("a3",cmonth);
+                intent.putExtra("a4",cyear);
+                intent.putExtra("a5",pathIp);
                 startActivity(intent);
             }
         });
@@ -205,18 +221,36 @@ public class DashBoardFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onRefresh() {
+        new FetchList1().execute();
+        new Fetchreport().execute();
+        new Fetchbalance().execute();
+        new FetchActive().execute();
+        new FetchDeactive().execute();
+        refreshLayout.setRefreshing(false);
+    }
+
     class FetchList1 extends AsyncTask<String, String, String>
     {
 
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progress=new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress=new ProgressDialog(getActivity());
+//            progress.setMessage("Loading...");
+//            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progress.setIndeterminate(true);
+//            progress.setProgress(0);
+//            progress.show();
+
+            progress = new ProgressDialog(getActivity());
+            progress.getWindow().setBackgroundDrawable(new
+                    ColorDrawable(android.graphics.Color.TRANSPARENT));
             progress.setIndeterminate(true);
-            progress.setProgress(0);
+            progress.setCancelable(false);
             progress.show();
+            progress.setContentView(R.layout.progress_dialog);
         }
         @Override
         protected String doInBackground(String... params)

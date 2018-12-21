@@ -134,7 +134,7 @@ public class AgentFragment extends Fragment {
                 // para.add(new BasicNameValuePair("CustBal", balance));
                 para.add(new BasicNameValuePair("AgentName", agentnm));
                 para.add(new BasicNameValuePair("Password", password));
-                para.add(new BasicNameValuePair("IMEINo", imeino));
+                //para.add(new BasicNameValuePair("IMEINo", imeino));
                 para.add(new BasicNameValuePair("OperatorCode", operatorno));
 
                 String jsonStr = shh.makeServiceCall(url, ServiceHandler.POST, para);

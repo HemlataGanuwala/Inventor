@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/ANDROIDSTUDIO/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_backspace_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/ANDROIDSTUDIO/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_view_list_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,11 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="icon_backspace" />
+                            <entry key="height" value="30" />
+                            <entry key="outputName" value="icon_list" />
+                            <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Hema" />
+                            <entry key="width" value="30" />
                           </map>
                         </option>
                       </PersistentState>

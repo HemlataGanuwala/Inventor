@@ -52,7 +52,8 @@
                 android:ems="10"
                 android:hint="Agent Name"
                 android:inputType="textCapWords|textPersonName"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:theme="@style/AccentAppTheme"/>
 
             <EditText
                 android:id="@+id/etagentpassword"
@@ -67,7 +68,8 @@
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:theme="@style/AccentAppTheme"/>
 
             <Button
                 android:id="@+id/btnagentregister"

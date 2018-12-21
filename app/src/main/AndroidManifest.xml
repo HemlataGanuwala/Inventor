@@ -3,8 +3,7 @@
     package="com.example.hema.cableapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".GlobalClass"
@@ -14,8 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"
-            >
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +30,9 @@
         <activity android:name=".ReportsActivity" />
         <activity android:name=".BalanceReportActivity" />
         <activity android:name=".ActiveDeactiveActivity" />
-        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".RegListActivity" />
+        <activity android:name=".RegEditActivity"></activity>
     </application>
 
 </manifest>

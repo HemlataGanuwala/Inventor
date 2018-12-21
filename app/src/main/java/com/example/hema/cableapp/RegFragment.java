@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,6 +80,7 @@ public class RegFragment extends Fragment {
     String packrate;
     ArrayAdapter<String> spinnerpackageAdapter;
     com.suke.widget.SwitchButton switchButton;
+    ImageView imageViewlist;
 
     //defining AwesomeValidation object
     private AwesomeValidation awesomeValidation;
@@ -115,11 +117,23 @@ public class RegFragment extends Fragment {
         textViewdate=(TextView)view.findViewById(R.id.txtdate);
         textViewactiveDeactive=(TextView)view.findViewById(R.id.tvregad);
         spinneragentname=(Spinner)view.findViewById(R.id.spinagentname);
+        imageViewlist=(ImageView) view.findViewById(R.id.imgreglist);
 
         Display();
 
         new GetPackageData().execute();
         new GetAgentData().execute();
+
+        imageViewlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),RegListActivity.class);
+                intent.putExtra("a1",imeino);
+                intent.putExtra("a2",operatorno);
+                intent.putExtra("a3",pathIp);
+                startActivity(intent);
+            }
+        });
 
         switchButton = (com.suke.widget.SwitchButton)view.findViewById(R.id.switch_button);
 

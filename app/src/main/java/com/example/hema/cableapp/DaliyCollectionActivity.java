@@ -104,7 +104,7 @@ public class DaliyCollectionActivity extends AppCompatActivity {
                 }
 //                currdate = CDay + "/" + CMonth + "/" + year;
 //                textViewcdate.setText(currdate);
-                paydate = CDay + "/" + CMonth + "/" + year;
+                paydate = CDay + "-" + CMonth + "-" + year;
                 textViewdate.setText(paydate);
             }
         };
@@ -192,7 +192,7 @@ public class DaliyCollectionActivity extends AppCompatActivity {
         protected String doInBackground(String... params)
         {
             shh = new ServiceHandler();
-            String url =  path + "Report/DailyCollectionReport";
+            String url =  pathIp + "Report/DailyCollectionReport";
 
             Log.d("Url: ", "> " + url);
 
