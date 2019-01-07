@@ -74,7 +74,6 @@ public class DashBoardFragment extends Fragment implements SwipeRefreshLayout.On
         textViewactive = (TextView)view.findViewById(R.id.tvdashactive);
         textViewdeactive = (TextView)view.findViewById(R.id.tvdashdeactive);
 
-        Submitdata();
 
         Display();
 
@@ -148,63 +147,6 @@ public class DashBoardFragment extends Fragment implements SwipeRefreshLayout.On
             }
         });
         return view;
-    }
-
-    public void Submitdata() {
-
-        Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-
-        if (month == 0) {
-            cmonth = "DEC";
-            cyear = String.valueOf(year);
-        }
-        if (month == 1) {
-            cmonth = "JAN";
-            cyear = String.valueOf(year);
-        }
-        if (month == 2) {
-            cmonth = "FEB";
-            cyear = String.valueOf(year);
-        }
-        if (month == 3) {
-            cmonth = "MAR";
-            cyear = String.valueOf(year);
-        }
-        if (month == 4) {
-            cmonth = "APR";
-            cyear = String.valueOf(year);
-        }
-        if (month == 5) {
-            cmonth = "MAY";
-            cyear = String.valueOf(year);
-        }
-        if (month == 6) {
-            cmonth = "JUN";
-            cyear = String.valueOf(year);
-        }
-        if (month == 7) {
-            cmonth = "JUL";
-            cyear = String.valueOf(year);
-        }
-        if (month == 8) {
-            cmonth = "AUG";
-            cyear = String.valueOf(year);
-        }
-        if (month == 9) {
-            cmonth = "SEP";
-            cyear = String.valueOf(year);
-        }
-        if (month == 10) {
-            cmonth = "OCT";
-            cyear = String.valueOf(year);
-        }
-        if (month == 11) {
-            cmonth = "NOV";
-            cyear = String.valueOf(year);
-        }
-
     }
 
     public void Display()

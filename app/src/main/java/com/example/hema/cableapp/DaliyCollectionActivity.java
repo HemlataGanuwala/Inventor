@@ -38,7 +38,7 @@ public class DaliyCollectionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     int month,year,day;
     String CDay,CMonth,cmonth,cyear,paydate;
-    TextView textViewdate;
+    TextView textViewdate,textViewtotcust,textViewtotamt;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     Button buttonsearch;
 
@@ -51,6 +51,8 @@ public class DaliyCollectionActivity extends AppCompatActivity {
 //        path = globalVariable.getconstr();
 
         textViewdate = (TextView)findViewById(R.id.tvdcdate);
+        textViewtotcust = (TextView)findViewById(R.id.tvtotcustomer);
+        textViewtotamt = (TextView)findViewById(R.id.tvtotamt);
         buttonsearch = (Button)findViewById(R.id.btnsearch);
 
         Display();
@@ -64,6 +66,7 @@ public class DaliyCollectionActivity extends AppCompatActivity {
         buttonsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                paydate = textViewdate.getText().toString();
                 new FetchList1().execute();
             }
         });
@@ -222,8 +225,8 @@ public class DaliyCollectionActivity extends AppCompatActivity {
                         DailyCollectionPlanet planet1 = new DailyCollectionPlanet(custnm,mobile,paidamt1,paidamt2);
                         mPlanetlist1.add(planet1);
                     }
-                    try  { Thread.sleep(500);}
-                    catch (InterruptedException e){e.printStackTrace();}
+//                    try  { Thread.sleep(500);}
+//                    catch (InterruptedException e){e.printStackTrace();}
 
                 } else {
                     Toast.makeText(DaliyCollectionActivity.this, "Data Not Available", Toast.LENGTH_LONG).show();
@@ -247,6 +250,17 @@ public class DaliyCollectionActivity extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                 }
             });
+
+            int ti = adapter.getItemCount();
+            double totalqty = 0;
+            double totalamt = 0;
+            for (int i=0;i < ti;i++)
+            {
+                int amtlist = Integer.parseInt(mPlanetlist1.get(i).getPaidAmt());
+                totalamt = (totalamt + amtlist);
+            }
+            textViewtotcust.setText(Integer.toString(ti));
+            textViewtotamt.setText(Integer.toString((int) totalamt));
             //adapter.setOnItemClickListner(g);
         }
     }

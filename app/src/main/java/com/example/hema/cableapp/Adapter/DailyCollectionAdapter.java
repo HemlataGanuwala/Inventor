@@ -49,7 +49,7 @@ public class DailyCollectionAdapter extends RecyclerView.Adapter<DailyCollection
 
     public class ListHolder extends RecyclerView.ViewHolder {
         TextView textViewdailycust,textViewdailymobile,textViewdailypaid;
-        ImageButton imageButtoncall;
+
         public ListHolder(View itemView) {
             super(itemView);
             textViewdailycust = (TextView) itemView.findViewById(R.id.tvdailycustname);
@@ -57,17 +57,17 @@ public class DailyCollectionAdapter extends RecyclerView.Adapter<DailyCollection
             textViewdailypaid = (TextView) itemView.findViewById(R.id.tvdailypaidamt);
 
 
-            imageButtoncall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(mlistner != null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            mlistner.onItemClick(position);
-                        }
-                    }
-                }
-            });
+//            imageButtoncall.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if(mlistner != null){
+//                        int position = getAdapterPosition();
+//                        if(position != RecyclerView.NO_POSITION){
+//                            mlistner.onItemClick(position);
+//                        }
+//                    }
+//                }
+//            });
         }
     }
 }

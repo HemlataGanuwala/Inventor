@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,11 +50,30 @@ public class ReportsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rcreportmonth);
         recyclerView.setLayoutManager(new LinearLayoutManager(ReportsActivity.this));
 
+        List<String> list = new ArrayList<String>();
+        list.add("JAN");
+        list.add("FEB");
+        list.add("MAR");
+        list.add("APR");
+        list.add("MAY");
+        list.add("JUN");
+        list.add("JUL");
+        list.add("AUG");
+        list.add("SEP");
+        list.add("OCT");
+        list.add("NOV");
+        list.add("DEC");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        textViewmonth.setAdapter(dataAdapter);
+
         buttonsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 mPlanetlist1.clear();
+                cmonth = textViewmonth.getSelectedItem().toString();
                 new FetchList1().execute();
             }
         });
@@ -92,7 +112,7 @@ public class ReportsActivity extends AppCompatActivity {
 
             try {
                 List<NameValuePair> params2 = new ArrayList<>();
-                params2.add(new BasicNameValuePair("Bmonth", month));
+                params2.add(new BasicNameValuePair("Bmonth", cmonth));
                 params2.add(new BasicNameValuePair("Byear", cyear));
                 params2.add(new BasicNameValuePair("IMEINo", imeino));
                 params2.add(new BasicNameValuePair("OperatorCode", operatorno));

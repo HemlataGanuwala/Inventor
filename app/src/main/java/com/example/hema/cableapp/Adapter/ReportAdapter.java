@@ -50,7 +50,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ListHolder
 
     public class ListHolder extends RecyclerView.ViewHolder {
         TextView textViewdailycust,textViewdailymobile,textViewdailypaid;
-        ImageButton imageButtoncall;
+
         public ListHolder(View itemView) {
             super(itemView);
             textViewdailycust = (TextView) itemView.findViewById(R.id.tvreportcustnm);
@@ -58,17 +58,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ListHolder
             textViewdailypaid = (TextView) itemView.findViewById(R.id.tvreportpaid);
 
 
-            imageButtoncall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(mlistner != null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            mlistner.onItemClick(position);
-                        }
-                    }
-                }
-            });
         }
     }
 }

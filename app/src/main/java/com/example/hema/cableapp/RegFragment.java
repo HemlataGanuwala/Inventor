@@ -275,11 +275,12 @@ public class RegFragment extends Fragment {
             super.onPreExecute();
 
             progress = new ProgressDialog(getActivity());
-            progress.setMessage("Loading...");
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.getWindow().setBackgroundDrawable(new
+                    ColorDrawable(android.graphics.Color.TRANSPARENT));
             progress.setIndeterminate(true);
-            progress.setProgress(0);
+            progress.setCancelable(false);
             progress.show();
+            progress.setContentView(R.layout.progress_dialog);
         }
 
         @Override

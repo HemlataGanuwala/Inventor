@@ -229,6 +229,12 @@ public class LoginPinFragment extends Fragment {
         return view;
     }
 
+    private static int getPreviousYear() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.YEAR, -1);
+        return c.get(Calendar.YEAR);
+    }
+
     public void Submitdata() {
 
         Calendar c = Calendar.getInstance();
@@ -236,54 +242,61 @@ public class LoginPinFragment extends Fragment {
         month = c.get(Calendar.MONTH);
 
         if (month == 0) {
+            year = getPreviousYear();
+            cyear = String.valueOf(year);
             cmonth = "DEC";
-            cyear = String.valueOf(year);
         }
-        if (month == 1) {
-            cmonth = "JAN";
-            cyear = String.valueOf(year);
+        else
+        {
+            if (month == 0) {
+                cmonth = "DEC";
+                cyear = String.valueOf(year);
+            }
+            if (month == 1) {
+                cmonth = "JAN";
+                cyear = String.valueOf(year);
+            }
+            if (month == 2) {
+                cmonth = "FEB";
+                cyear = String.valueOf(year);
+            }
+            if (month == 3) {
+                cmonth = "MAR";
+                cyear = String.valueOf(year);
+            }
+            if (month == 4) {
+                cmonth = "APR";
+                cyear = String.valueOf(year);
+            }
+            if (month == 5) {
+                cmonth = "MAY";
+                cyear = String.valueOf(year);
+            }
+            if (month == 6) {
+                cmonth = "JUN";
+                cyear = String.valueOf(year);
+            }
+            if (month == 7) {
+                cmonth = "JUL";
+                cyear = String.valueOf(year);
+            }
+            if (month == 8) {
+                cmonth = "AUG";
+                cyear = String.valueOf(year);
+            }
+            if (month == 9) {
+                cmonth = "SEP";
+                cyear = String.valueOf(year);
+            }
+            if (month == 10) {
+                cmonth = "OCT";
+                cyear = String.valueOf(year);
+            }
+            if (month == 11) {
+                cmonth = "NOV";
+                cyear = String.valueOf(year);
+            }
         }
-        if (month == 2) {
-            cmonth = "FEB";
-            cyear = String.valueOf(year);
-        }
-        if (month == 3) {
-            cmonth = "MAR";
-            cyear = String.valueOf(year);
-        }
-        if (month == 4) {
-            cmonth = "APR";
-            cyear = String.valueOf(year);
-        }
-        if (month == 5) {
-            cmonth = "MAY";
-            cyear = String.valueOf(year);
-        }
-        if (month == 6) {
-            cmonth = "JUN";
-            cyear = String.valueOf(year);
-        }
-        if (month == 7) {
-            cmonth = "JUL";
-            cyear = String.valueOf(year);
-        }
-        if (month == 8) {
-            cmonth = "AUG";
-            cyear = String.valueOf(year);
-        }
-        if (month == 9) {
-            cmonth = "SEP";
-            cyear = String.valueOf(year);
-        }
-        if (month == 10) {
-            cmonth = "OCT";
-            cyear = String.valueOf(year);
-        }
-        if (month == 11) {
-            cmonth = "NOV";
-            cyear = String.valueOf(year);
-        }
-
     }
 
     public void Filltextdata()
