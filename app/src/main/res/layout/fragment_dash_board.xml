@@ -92,7 +92,7 @@
                            android:layout_marginRight="5dp"
                            android:layout_marginBottom="3dp"
                            android:gravity="center"
-                           android:text="Today Collection"
+                           android:text="Daily Collection"
                            android:textColor="@android:color/white"
                            android:textSize="16sp"
                            android:textStyle="bold" />
